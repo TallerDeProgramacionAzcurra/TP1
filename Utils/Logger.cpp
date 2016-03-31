@@ -16,7 +16,9 @@ Logger::Logger()
 	m_file.open( filename.c_str(), std::ios::out|std::ios::in|std::ios::app );
 	 if (!m_file.good())
 	 {
-		 perror("ERROR: El Logger no pudo abrir el archivo. \n");
+		 perror("ERROR: El Logger no pudo abrir el archivo ");
+		 perror (filename.c_str());
+		 perror (".\n");
 		 return;
 	 }
 	 m_file << "  ===============================================\n"

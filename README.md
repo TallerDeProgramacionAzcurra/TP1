@@ -1,2 +1,2 @@
-# TP1
-TP1 de la materia 75.42 - Taller de programación 1.
+# 1942-Multiplayer-SDL2
+1942 game, using C++ and SDL2 library.

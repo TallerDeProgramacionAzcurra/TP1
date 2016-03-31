@@ -8,7 +8,7 @@
 #ifndef UTILS_PARSER_PARSERSERVIDOR_H_
 #define UTILS_PARSER_PARSERSERVIDOR_H_
 
-#define XML_SERVIDOR_DEFAULT_PATH "Utils/Default/servidor.xml"
+#define XML_SERVIDOR_DEFAULT_PATH "src/Utils/Default/servidor.xml"
 #define CANTIDAD_MAXIMA_CLIENTES_ADMISIBLE_XML 32767 //es el valor maximo que se permite como int valido en el xml. Puse uno exageradamente alto
 
 #include "Parser.h"

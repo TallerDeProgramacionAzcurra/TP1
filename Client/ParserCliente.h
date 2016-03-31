@@ -8,7 +8,7 @@
 #ifndef UTILS_PARSERCLIENTE_H_
 #define UTILS_PARSERCLIENTE_H_
 
-#define XML_CLIENTE_DEFAULT_PATH "Utils/Default/cliente.xml"
+#define XML_CLIENTE_DEFAULT_PATH "src/Utils/Default/cliente.xml"
 
 #include "Parser.h"
 #include "../Logger.h"
