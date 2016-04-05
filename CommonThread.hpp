@@ -9,11 +9,10 @@
 #ifndef CommonThread_hpp
 #define CommonThread_hpp
 
-#include <stdio.h>
 #include <pthread.h>
+#include <stdio.h>
 
-class Thread
-{
+class Thread {
 private:
     pthread_t thread;
     
