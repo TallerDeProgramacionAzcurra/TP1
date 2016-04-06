@@ -8,6 +8,8 @@
 #ifndef COMMONSOCKET_HPP_
 #define COMMONSOCKET_HPP_
 
+#include <string>
+
 class Socket {
 private:
 	int socketFD;
@@ -17,6 +19,9 @@ public:
 	virtual ~Socket();
 
 	void socketShutdown();
+
+	void socketSend(std::string &dataToSend);
+	std::string socketRecieve(size_t dataToRecieveSize);
 };
 
 #endif /* COMMONSOCKET_HPP_ */
