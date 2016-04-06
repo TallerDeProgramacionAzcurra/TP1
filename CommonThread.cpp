@@ -20,7 +20,7 @@ Thread::Thread() {
     int operationResult = pthread_create(&this->thread, NULL, Thread::routine, this);
     
     if (operationResult != kThreadOperationSucces) {
-        perror("Thread creation error.");
+    	printf("Thread creation error: %s\n", strerror(errno));
         exit(1);
     }
     
@@ -31,7 +31,7 @@ void Thread::threadJoin() {
     int operationResult = pthread_join(this->thread, NULL);
     
     if (operationResult != kThreadOperationSucces) {
-        perror("Thread join error.");
+        printf("Thread join error: %s\n", strerror(errno));
         exit(1);
     }
     
