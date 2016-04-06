@@ -39,7 +39,12 @@ void Thread::threadJoin() {
 }
 
 void Thread::threadRun() {
-    
+}
+
+void Thread::threadStop() {
+}
+
+void Thread::threadIsZombie() {
 }
 
 void *Thread::routine(void *threadID) {

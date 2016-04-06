@@ -25,6 +25,8 @@ public:
     
     void threadJoin();
     virtual void threadRun();
+    virtual void threadStop();
+    virtual void threadIsZombie();
 };
 
 #endif /* CommonThread_hpp */
