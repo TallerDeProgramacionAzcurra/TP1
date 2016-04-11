@@ -10,8 +10,10 @@
 
 #include <string>
 
+static int const kSocketError = -1;
+
 class Socket {
-private:
+protected:
 	int socketFD;
 
 public:
