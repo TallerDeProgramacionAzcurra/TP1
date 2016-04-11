@@ -43,6 +43,7 @@ void Socket::socketShutdown() {
 }
 
 void Socket::socketSend(std::string &dataToSend) {
+	// TODO: Gaston - Implementar el protocolo.
 	size_t bytesSent = 0;
 	size_t bytesToSend = dataToSend.size();
 	bool socketIsOpen = true;
@@ -66,6 +67,7 @@ void Socket::socketSend(std::string &dataToSend) {
 }
 
 std::string Socket::socketRecieve(size_t dataToRecieveSize) {
+	// TODO: Gaston - Implementar el protocolo.
 	printf("Data to receive length: %lu\n", dataToRecieveSize);
 	    size_t dataReceivedSize = 0;
 	    std::string dataReceived;
