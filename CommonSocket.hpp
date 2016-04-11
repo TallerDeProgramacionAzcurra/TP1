@@ -13,13 +13,15 @@
 static int const kSocketError = -1;
 
 class Socket {
+private:
+    void socketClose();
+    
 protected:
 	int socketFD;
-    
-    void socketClose();
 
 public:
 	Socket();
+    Socket(int socketFD);
 	virtual ~Socket();
 
 	void socketShutdown();

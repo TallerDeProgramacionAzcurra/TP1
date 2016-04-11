@@ -29,7 +29,7 @@ public:
     void threadJoin();
     virtual void threadRun();
     virtual void threadStop();
-    virtual void threadIsZombie();
+    virtual bool threadIsZombie();
 };
 
 #endif /* CommonThread_hpp */

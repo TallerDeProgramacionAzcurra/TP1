@@ -47,7 +47,8 @@ void Thread::threadRun() {
 void Thread::threadStop() {
 }
 
-void Thread::threadIsZombie() {
+bool Thread::threadIsZombie() {
+    return false;
 }
 
 void *Thread::routine(void *threadID) {

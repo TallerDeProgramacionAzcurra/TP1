@@ -27,6 +27,10 @@ Socket::Socket() {
     }
 }
 
+Socket::Socket(int socketFD) {
+    this->socketFD = socketFD;
+}
+
 Socket::~Socket() {
     this->socketClose();
     this->socketFD = 0;

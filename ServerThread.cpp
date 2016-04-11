@@ -6,14 +6,38 @@
 //  Copyright © 2016 Gaston Montes. All rights reserved.
 //
 
+#include <stdlib.h>
+#include <list>
+
+#include "ServerClientThread.cpp"
 #include "ServerThread.hpp"
 
 ServerThread::~ServerThread() {
 }
 
 void ServerThread::threadRun() {
-    // @TODO: Gastón - Aca se recibe y envía datos.
+    std::list<ServerClientThread> clientThreads;
+    
     while(this->threadKeepTalking == true) {
+        int clientSocket = this->serverSocket.serverSocketAcceptConnection();
+        ServerClientThread serverClientThread(clientSocket);
+        clientThreads.insert(clientThreads.end(), serverClientThread);
+        
+        for (std::list<ServerClientThread>::iterator iter = clientThreads.begin(); iter != clientThreads.end(); iter++) {
+            ServerClientThread clientThread = *iter;
+            
+            if (clientThread.threadIsZombie() == true) {
+                clientThread.threadStop();
+                clientThread.threadJoin();
+                clientThreads.remove(clientThread);
+            }
+        }
+    }
+    
+    for (std::list<ServerClientThread>::iterator iter = clientThreads.begin(); iter != clientThreads.end(); iter++) {
+        ServerClientThread clientThread = *iter;
+        clientThread.threadStop();
+        clientThread.threadJoin();
     }
 }
 
