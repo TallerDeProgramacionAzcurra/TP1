@@ -39,8 +39,7 @@ void ServerSocket::serverSocketBind() {
 }
 
 void ServerSocket::serverSocketListenConnections() {
-    // @TODO: Gastón - Ver de donde saco el backlog.
-    int result = listen(this->socketFD, 10);
+    int result = listen(this->socketFD, this->serverBacklog);
     if (result == kSocketError) {
         printf("Socket listen error:%sn\n", strerror(errno));
         exit(1);

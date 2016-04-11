@@ -16,6 +16,7 @@
 class ServerSocket: public Socket {
 private:
     int serverPort;
+    int serverBacklog;
     
     void serverSocketBind();
     struct sockaddr_in serverSocketGetAddress();
@@ -25,12 +26,12 @@ private:
 public:
     // Constructors and destructors.
     virtual ~ServerSocket();
-    ServerSocket(int serverPort) : Socket() {
+    ServerSocket(int serverPort, int serverBacklog) : Socket() {
         this->serverPort = serverPort;
+        this->serverBacklog = serverBacklog;
         
         this->serverSocketBind();
         this->serverSocketListenConnections();
-        this->serverSocketAcceptConnection();
     }
 };
 
