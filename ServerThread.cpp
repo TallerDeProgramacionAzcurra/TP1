@@ -9,7 +9,7 @@
 #include <stdlib.h>
 #include <list>
 
-#include "ServerClientThread.cpp"
+#include "ServerClientThread.hpp"
 #include "ServerThread.hpp"
 
 ServerThread::~ServerThread() {
