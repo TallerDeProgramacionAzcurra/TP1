@@ -11,4 +11,27 @@
 
 #include <stdio.h>
 
+#include "CommonSocket.hpp"
+
+class ServerSocket: public Socket {
+private:
+    int serverPort;
+    
+    void serverSocketBind();
+    struct sockaddr_in serverSocketGetAddress();
+    void serverSocketListenConnections();
+    int serverSocketAcceptConnection();
+    
+public:
+    // Constructors and destructors.
+    virtual ~ServerSocket();
+    ServerSocket(int serverPort) : Socket() {
+        this->serverPort = serverPort;
+        
+        this->serverSocketBind();
+        this->serverSocketListenConnections();
+        this->serverSocketAcceptConnection();
+    }
+};
+
 #endif /* ServerSocket_hpp */

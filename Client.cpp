@@ -19,7 +19,7 @@ int main(int argc, const char * argv[]) {
     
     // La información que va a enviar el servidor.
     // Es solo una prueba.
-    // Hay que generar un hilo nuevo para manejar el send/recieve.
+    // @TODO: Gastón - Hay que generar un hilo nuevo para manejar el send/recieve.
     std::string dataToSend = "Socket client se conectó";
     clientSocket.socketRecieve(dataToSend.size());
     
