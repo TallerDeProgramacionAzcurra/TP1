@@ -28,7 +28,7 @@ public:
         this->socketServerAddress = serverAddress;
         this->socketServerPort = serverPort;
         this->clientSocketConnect();
-    };
+    }
 };
 
 #endif /* ClientSocket_hpp */

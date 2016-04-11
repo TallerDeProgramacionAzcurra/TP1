@@ -24,8 +24,7 @@ private:
 public:
     // Constructors and destructors.
     virtual ~ClientThread();
-    ClientThread() : Thread(), clientSocket(ClientSocket(kSocketAddress, kSocketPort)) {
-    }
+    ClientThread() : Thread(), clientSocket(ClientSocket(kSocketAddress, kSocketPort)) {}
     
     void threadRun();
     void threadStop();

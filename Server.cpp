@@ -10,6 +10,7 @@
 #include <iostream>
 
 #include "ServerSocket.hpp"
+#include "ServerThread.hpp"
 
 static int const kSocketPort = 43210;
 static int const kSocketBacklog = 10;
@@ -17,6 +18,9 @@ static int const kSocketBacklog = 10;
 int main(int argc, const char * argv[]) {
     ServerSocket serverSocket(kSocketPort, kSocketBacklog);
     
+    ServerThread serverThread(serverSocket);
+    
+    printf("Ingrese la tecla 'Q' para detener la ejecución del Servidor: ");
     char inputChar;
     std::cin >> inputChar;
     
@@ -25,14 +29,8 @@ int main(int argc, const char * argv[]) {
     }
     
     serverSocket.socketShutdown();
+    serverThread.threadStop();
+    serverThread.threadJoin();
     
     return 0;
 }
-
-//    ServerThread serverThread(serverSock);
-//    if (inputChar == 'q') {
-//        serverSock.socketSetKeepTalking(false);
-//        serverThread.threadJoin();
-//    }
-//
-//}

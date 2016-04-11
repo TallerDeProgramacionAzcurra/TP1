@@ -21,7 +21,6 @@ private:
     void serverSocketBind();
     struct sockaddr_in serverSocketGetAddress();
     void serverSocketListenConnections();
-    int serverSocketAcceptConnection();
     
 public:
     // Constructors and destructors.
@@ -33,6 +32,8 @@ public:
         this->serverSocketBind();
         this->serverSocketListenConnections();
     }
+    
+    int serverSocketAcceptConnection();
 };
 
 #endif /* ServerSocket_hpp */

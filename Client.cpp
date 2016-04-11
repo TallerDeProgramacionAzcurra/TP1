@@ -15,8 +15,7 @@
 int main(int argc, const char * argv[]) {
     ClientThread clientThread;
     
-    printf("Ingrese la tecla 'Q' para detener la ejecución: ");
-    
+    printf("Ingrese la tecla 'Q' para detener la ejecución del cliente: ");
     char inputChar;
     std::cin >> inputChar;
     
