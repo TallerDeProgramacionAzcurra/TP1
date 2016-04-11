@@ -15,6 +15,8 @@ static int const kSocketError = -1;
 class Socket {
 protected:
 	int socketFD;
+    
+    void socketClose();
 
 public:
 	Socket();

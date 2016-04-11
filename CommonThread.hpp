@@ -18,6 +18,9 @@ private:
     
     static void *routine(void *threadID);
     
+protected:
+    bool threadKeepTalking;
+    
 public:
     // Constructors and destructors.
     virtual ~Thread();

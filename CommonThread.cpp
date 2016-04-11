@@ -25,6 +25,8 @@ Thread::Thread() {
         exit(1);
     }
     
+    this->threadKeepTalking = true;
+    
     printf("Thread creation success.");
 }
 

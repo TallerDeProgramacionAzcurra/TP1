@@ -10,20 +10,22 @@
 #include <iostream>
 
 #include "ClientSocket.hpp"
-
-static std::string const kSocketAddress = "127.0.0.1";
-static int const kSocketPort = 43210;
+#include "ClientThread.hpp"
 
 int main(int argc, const char * argv[]) {
-    ClientSocket clientSocket(kSocketAddress, kSocketPort);
+    ClientThread clientThread;
     
-    // La información que va a enviar el servidor.
-    // Es solo una prueba.
-    // @TODO: Gastón - Hay que generar un hilo nuevo para manejar el send/recieve.
-    std::string dataToSend = "Socket client se conectó";
-    clientSocket.socketRecieve(dataToSend.size());
+    printf("Ingrese la tecla 'Q' para detener la ejecución: ");
     
-    clientSocket.socketShutdown();
+    char inputChar;
+    std::cin >> inputChar;
+    
+    while (inputChar != 'q' && inputChar != 'Q') {
+        std::cin >> inputChar;
+    }
+    
+    clientThread.threadStop();
+    clientThread.threadJoin();
     
     return 0;
 }
