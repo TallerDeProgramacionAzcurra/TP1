@@ -29,7 +29,6 @@ void ServerThread::threadRun() {
             if (clientThread.threadIsZombie() == true) {
                 clientThread.threadStop();
                 clientThread.threadJoin();
-                clientThreads.remove(clientThread);
             }
         }
     }
