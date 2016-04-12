@@ -27,7 +27,7 @@ Thread::Thread() {
     
     this->threadKeepTalking = true;
     
-    printf("Thread creation success.");
+    printf("Thread creation success.\n");
 }
 
 void Thread::threadJoin() {
@@ -38,7 +38,7 @@ void Thread::threadJoin() {
         exit(1);
     }
     
-    printf("Thread joined.");
+    printf("Thread joined.\n");
 }
 
 void Thread::threadRun() {
@@ -52,7 +52,7 @@ bool Thread::threadIsZombie() {
 }
 
 void *Thread::routine(void *threadID) {
-    printf("Run Thread routine");
+    printf("Run Thread routine\n");
     Thread *thread = (Thread *)threadID;
     thread->threadRun();
     return NULL;
