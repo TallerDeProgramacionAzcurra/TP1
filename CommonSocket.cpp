@@ -23,6 +23,7 @@ Socket::Socket() {
     
     if (this->socketFD == kSocketError) {
         printf("CommonSocket.cpp - Socket creation error: %s\n", strerror(errno));
+        this->socketClose();
         exit(1);
     }
 }
@@ -41,6 +42,7 @@ void Socket::socketShutdown() {
     
     if (result == kSocketError) {
         printf("CommonSocket.cpp - Socket shutdown error: %s\n", strerror(errno));
+        this->socketClose();
         exit(1);
     }
 }
@@ -65,6 +67,7 @@ void Socket::socketSend(std::string &dataToSend) {
         
         if (result == kSocketError) {
             printf("CommonSocket.cpp - Socket send error: %sn\n", strerror(errno));
+            this->socketClose();
             exit(1);
         } else if (result == kSocketClosed) {
             printf("CommonSocket.cpp - Socket receive close: %sn\n", strerror(errno));
@@ -94,6 +97,7 @@ std::string Socket::socketRecieve(size_t dataToRecieveSize) {
         
         if (result == kSocketError) {
             printf("CommonSocket.cpp - Socket receive error: %s\n", strerror(errno));
+            this->socketClose();
             exit(1);
         } else if (result == kSocketClosed) {
             printf("CommonSocket.cpp - Socket receive close: %s\n", strerror(errno));

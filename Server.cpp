@@ -20,10 +20,10 @@ int main(int argc, const char * argv[]) {
     
     ServerThread serverThread(serverSocket);
     
-    printf("Ingrese la tecla 'Q' para detener la ejecución del Servidor: ");
     char inputChar;
     std::cin >> inputChar;
     
+    printf("Ingrese la tecla 'Q' para detener la ejecución del Servidor: ");
     while (inputChar != 'q' && inputChar != 'Q') {
         std::cin >> inputChar;
     }

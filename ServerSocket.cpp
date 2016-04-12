@@ -31,7 +31,8 @@ void ServerSocket::serverSocketBind() {
     int result = bind(this->socketFD, (struct sockaddr *)&serverAddress, sizeof(serverAddress));
     if (result == kSocketError) {
         
-        printf("ServerSocket.cpp - Socket bind error: %sn\n", strerror(errno));
+        printf("ServerSocket.cpp - Socket bind error: %s\n", strerror(errno));
+        this->socketClose();
         exit(1);
     }
     
@@ -41,7 +42,8 @@ void ServerSocket::serverSocketBind() {
 void ServerSocket::serverSocketListenConnections() {
     int result = listen(this->socketFD, this->serverBacklog);
     if (result == kSocketError) {
-        printf("ServerSocket.cpp - Socket listen error:%sn\n", strerror(errno));
+        printf("ServerSocket.cpp - Socket listen error:%s\n", strerror(errno));
+        this->socketClose();
         exit(1);
     }
     
@@ -52,9 +54,11 @@ int ServerSocket::serverSocketAcceptConnection() {
     socklen_t socketLength = sizeof(struct sockaddr_in);
     struct sockaddr_in *addr;
     
+    printf("ServerSocket.cpp - SocketFD: %i",this->socketFD);
     int clientFD = accept(this->socketFD, (struct sockaddr *)&addr, &socketLength);
     if (clientFD == kSocketError) {
-        printf("ServerSocket.cpp - Socket accept error:%sn\n", strerror(errno));
+        printf("ServerSocket.cpp - Socket accept error:%s\n", strerror(errno));
+        this->socketClose();
         exit(1);
     }
     
