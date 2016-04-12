@@ -31,21 +31,21 @@ void ServerSocket::serverSocketBind() {
     int result = bind(this->socketFD, (struct sockaddr *)&serverAddress, sizeof(serverAddress));
     if (result == kSocketError) {
         
-        printf("Socket bind error: %sn\n", strerror(errno));
+        printf("ServerSocket.cpp - Socket bind error: %sn\n", strerror(errno));
         exit(1);
     }
     
-    printf("Bindeado al puerto: %d\n", this->serverPort);
+    printf("ServerSocket.cpp - Bindeado al puerto: %d\n", this->serverPort);
 }
 
 void ServerSocket::serverSocketListenConnections() {
     int result = listen(this->socketFD, this->serverBacklog);
     if (result == kSocketError) {
-        printf("Socket listen error:%sn\n", strerror(errno));
+        printf("ServerSocket.cpp - Socket listen error:%sn\n", strerror(errno));
         exit(1);
     }
     
-    printf("Escuchando conexiones...\n");
+    printf("ServerSocket.cpp - Escuchando conexiones...\n");
 }
 
 int ServerSocket::serverSocketAcceptConnection() {
@@ -54,11 +54,11 @@ int ServerSocket::serverSocketAcceptConnection() {
     
     int clientFD = accept(this->socketFD, (struct sockaddr *)&addr, &socketLength);
     if (clientFD == kSocketError) {
-        printf("Socket accept error:%sn\n", strerror(errno));
+        printf("ServerSocket.cpp - Socket accept error:%sn\n", strerror(errno));
         exit(1);
     }
     
-    printf("Conexión entrante acceptada\n");
+    printf("ServerSocket.cpp - Conexión entrante acceptada\n");
     
     return clientFD;
 }

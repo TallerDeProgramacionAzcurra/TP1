@@ -16,10 +16,10 @@ ServerClientThread::~ServerClientThread() {
 
 void ServerClientThread::threadRun() {
     while(this->threadKeepTalking == true) {
-        printf("Corriendo hilo para el send del server/client\n");
+        printf("ServerClientThread.cpp - Corriendo hilo para el send del server/client\n");
         std::string dataToSend = "Socket server envía datos al cliente.";
         this->clientSocketFD.socketSend(dataToSend);
-        printf("Envíe correctamente los datos\n");
+        printf("ServerClientThread.cpp - Envíe correctamente los datos\n");
         this->threadKeepTalking = false;
     }
 }

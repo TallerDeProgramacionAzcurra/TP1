@@ -33,9 +33,9 @@ void ClientSocket::clientSocketConnect() {
     
     int result = connect(this->socketFD, address, addressSize);
     if (result == kSocketError) {
-        printf("Socket Connect error: %sn\n", strerror(errno));
+        printf("ClientSocket.cpp - Socket Connect error: %sn\n", strerror(errno));
         exit(1);
     }
     
-    printf("Se conectó correctamente a la dirección: %s y puerto %d\n", this->socketServerAddress.c_str(), this->socketServerPort);
+    printf("ClientSocket.cpp - Se conectó correctamente a la dirección: %s y puerto %d\n", this->socketServerAddress.c_str(), this->socketServerPort);
 }

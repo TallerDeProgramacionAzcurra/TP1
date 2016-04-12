@@ -21,24 +21,24 @@ Thread::Thread() {
     int operationResult = pthread_create(&this->thread, NULL, Thread::routine, this);
     
     if (operationResult != kThreadOperationSucces) {
-    	printf("Thread creation error: %s\n", strerror(errno));
+    	printf("CommonThread.cpp - Thread creation error: %s\n", strerror(errno));
         exit(1);
     }
     
     this->threadKeepTalking = true;
     
-    printf("Thread creation success.\n");
+    printf("CommonThread.cpp - Thread creation success.\n");
 }
 
 void Thread::threadJoin() {
     int operationResult = pthread_join(this->thread, NULL);
     
     if (operationResult != kThreadOperationSucces) {
-        printf("Thread join error: %s\n", strerror(errno));
+        printf("CommonThread.cpp - Thread join error: %s\n", strerror(errno));
         exit(1);
     }
     
-    printf("Thread joined.\n");
+    printf("CommonThread.cpp - Thread joined.\n");
 }
 
 void Thread::threadRun() {
@@ -52,7 +52,7 @@ bool Thread::threadIsZombie() {
 }
 
 void *Thread::routine(void *threadID) {
-    printf("Run Thread routine\n");
+    printf("CommonThread.cpp - Run Thread routine\n");
     Thread *thread = (Thread *)threadID;
     thread->threadRun();
     return NULL;
