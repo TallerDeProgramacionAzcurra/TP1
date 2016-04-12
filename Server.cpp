@@ -17,8 +17,9 @@ static int const kSocketBacklog = 10;
 
 int main(int argc, const char * argv[]) {
     ServerSocket serverSocket(kSocketPort, kSocketBacklog);
+    serverSocket.serverSocketAcceptConnection();
     
-    ServerThread serverThread(serverSocket);
+//    ServerThread serverThread(serverSocket);
     
     char inputChar;
     std::cin >> inputChar;
@@ -29,8 +30,8 @@ int main(int argc, const char * argv[]) {
     }
     
     serverSocket.socketShutdown();
-    serverThread.threadStop();
-    serverThread.threadJoin();
+//    serverThread.threadStop();
+//    serverThread.threadJoin();
     
     return 0;
 }
