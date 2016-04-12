@@ -17,15 +17,12 @@ static int const kSocketBacklog = 10;
 
 int main(int argc, const char * argv[]) {
     ServerSocket serverSocket(kSocketPort, kSocketBacklog);
-    serverSocket.serverSocketAcceptConnection();
     
-//    ServerThread serverThread(serverSocket);
+    ServerThread serverThread(serverSocket);
     
-    char inputChar;
-    std::cin >> inputChar;
-    
-    printf("Ingrese la tecla 'Q' para detener la ejecución del Servidor: ");
+    char inputChar = 'a';
     while (inputChar != 'q' && inputChar != 'Q') {
+        printf("Ingrese la tecla 'Q' para detener la ejecución del Servidor: ");
         std::cin >> inputChar;
     }
     

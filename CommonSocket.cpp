@@ -118,3 +118,7 @@ std::string Socket::socketRecieve(size_t dataToRecieveSize) {
     printf("CommonSocket.cpp - Datos recibidos: %s\n", dataReceived.c_str());
     return dataReceived;
 }
+
+void Socket::getSocketFD() {
+    return this->socketFD;
+}
