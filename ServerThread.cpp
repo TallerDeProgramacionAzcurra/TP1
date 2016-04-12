@@ -16,6 +16,7 @@ ServerThread::~ServerThread() {
 }
 
 void ServerThread::threadRun() {
+    printf("ServerThread.cpp - ThreadRun.\n");
     std::list<ServerClientThread> clientThreads;
     
     while(this->threadKeepTalking == true) {

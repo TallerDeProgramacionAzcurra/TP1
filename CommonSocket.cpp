@@ -26,6 +26,8 @@ Socket::Socket() {
         this->socketClose();
         exit(1);
     }
+    
+    printf("CommonSocket.cpp - Socket created with FD: %i\n", this->socketFD);
 }
 
 Socket::Socket(int socketFD) {
