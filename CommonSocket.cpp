@@ -119,6 +119,6 @@ std::string Socket::socketRecieve(size_t dataToRecieveSize) {
     return dataReceived;
 }
 
-void Socket::getSocketFD() {
+int Socket::getSocketFD() {
     return this->socketFD;
 }
