@@ -61,7 +61,7 @@ void Socket::socketSend(std::string &dataToSend) {
     bool socketIsOpen = true;
     
     while(bytesSent < bytesToSend && socketIsOpen == true) {
-        size_t result = send(this->socketFD, dataToSend.c_str(), bytesSent, 0);
+        int result = send(this->socketFD, dataToSend.c_str(), bytesSent, 0);
         
         if (result == kSocketError) {
             printf("Socket send error: %sn\n", strerror(errno));
@@ -86,7 +86,7 @@ std::string Socket::socketRecieve(size_t dataToRecieveSize) {
     bool socketOpen = true;
     
     while (dataReceivedSize < dataToRecieveSize && socketOpen == true) {
-        size_t result;
+        int result;
         std::vector<char> buffer;
         buffer.resize(dataToRecieveSize - dataReceivedSize, 0);
         

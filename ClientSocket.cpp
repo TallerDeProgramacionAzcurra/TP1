@@ -24,7 +24,7 @@ struct sockaddr_in ClientSocket::getServerAddress() {
     inet_pton(AF_INET, this->socketServerAddress.c_str(), &newAddr.sin_addr);
     memset(&(newAddr.sin_zero), 0, sizeof(newAddr.sin_zero));
     return newAddr;
-};
+}
 
 void ClientSocket::clientSocketConnect() {
     struct sockaddr_in serverAddress = this->getServerAddress();
