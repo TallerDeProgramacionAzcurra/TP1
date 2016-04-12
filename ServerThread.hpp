@@ -16,12 +16,12 @@
 
 class ServerThread : public Thread {
 private:
-    ServerSocket serverSocket;
+    ServerSocket &serverSocket;
     
 public:
     // Constructors and destructors.
     virtual ~ServerThread();
-    ServerThread(ServerSocket serverSocket) : Thread(), serverSocket(serverSocket) {}
+    ServerThread(ServerSocket &serverSocket);
     
     void threadRun();
     void threadStop();

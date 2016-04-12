@@ -15,6 +15,8 @@
 ServerThread::~ServerThread() {
 }
 
+ServerThread::ServerThread(ServerSocket &serverSocket) : Thread(), serverSocket(serverSocket) {}
+
 void ServerThread::threadRun() {
     printf("ServerThread.cpp - ThreadRun.\n");
     std::list<ServerClientThread> clientThreads;
