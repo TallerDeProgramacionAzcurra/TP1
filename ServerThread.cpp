@@ -8,6 +8,7 @@
 
 #include <sys/socket.h>
 #include <stdlib.h>
+#include <unistd.h>
 #include <list>
 
 #include "ServerClientThread.hpp"
@@ -34,11 +35,13 @@ void ServerThread::threadRun() {
         printf("ServerThread.cpp - Aceptando conexión con clientFD: %i.\n", clientSocketFD);
         
         std::string dataToSend = "Socket server envía datos al cliente.";
-//        size_t bytesToSend = dataToSend.size();
-//        size_t bytesSent = send(clientSocketFD, dataToSend.c_str(), bytesToSend, 0);
-//        printf("ServerThread.cpp - Datos enviados: %lu/%lu cuyo texto: %s\n", bytesSent, bytesToSend, dataToSend.c_str())
-        Socket clientSocket(clientSocketFD);
-        clientSocket.socketSend(dataToSend);
+        size_t bytesToSend = dataToSend.size();
+        size_t bytesSent = send(clientSocketFD, dataToSend.c_str(), bytesToSend, 0);
+        printf("ServerThread.cpp - Datos enviados: %lu/%lu cuyo texto: %s\n", bytesSent, bytesToSend, dataToSend.c_str());
+        
+        close(clientSocketFD);
+//        Socket clientSocket(clientSocketFD);
+//        clientSocket.socketSend(dataToSend);
 //        ServerClientThread *serverClientThread = new ServerClientThread(clientSocket);
 //        
 //        clientThreadList->insert(listIterator, serverClientThread);

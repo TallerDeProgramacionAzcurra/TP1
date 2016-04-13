@@ -65,7 +65,7 @@ int ServerSocket::serverSocketAcceptConnection() {
     struct sockaddr_in clientAddress;
     socklen_t addressInSize = sizeof(struct sockaddr_in);
     
-    this->clientFD = accept(this->socketFD, (struct sockaddr *)&clientAddress, &addressInSize);
+    int clientFD = accept(this->socketFD, (struct sockaddr *)&clientAddress, &addressInSize);
     if (clientFD == kSocketError) {
         printf("ServerSocket.cpp - Socket accept error:%s\n", strerror(errno));
         this->socketClose();
@@ -74,5 +74,5 @@ int ServerSocket::serverSocketAcceptConnection() {
     
     printf("ServerSocket.cpp - Conexión entrante acceptada. ServerFD: %i. ClientFD: %i\n", this->socketFD, clientFD);
     
-    return this->clientFD;
+    return clientFD;
 }

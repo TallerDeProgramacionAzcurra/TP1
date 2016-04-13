@@ -18,8 +18,6 @@ private:
     int serverPort;
     int serverBacklog;
     
-    int clientFD;
-    
     struct sockaddr_in serverSocketGetAddress();
     
 public:
