@@ -30,9 +30,7 @@ Socket::Socket() {
     printf("CommonSocket.cpp - Socket created with FD: %i\n", this->socketFD);
 }
 
-Socket::Socket(int socketFD) {
-    this->socketFD = socketFD;
-    
+Socket::Socket(int socketFD) : socketFD(socketFD) {
     printf("CommonSocket.cpp - Socket created with FD: %i\n", this->socketFD);
 }
 
