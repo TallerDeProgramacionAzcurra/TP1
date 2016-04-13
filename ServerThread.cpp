@@ -30,7 +30,8 @@ void ServerThread::threadRun() {
         
         printf("ServerThread.cpp - Aceptando conexión.\n");
         
-        ServerClientThread *serverClientThread = new ServerClientThread(clientSocketFD);
+        Socket clientSocket(clientSocketFD);
+        ServerClientThread *serverClientThread = new ServerClientThread(clientSocket);
         
         clientThreadList->insert(listIterator, serverClientThread);
         
