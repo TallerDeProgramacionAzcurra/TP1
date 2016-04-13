@@ -15,7 +15,7 @@ ServerClientThread::~ServerClientThread() {
     printf("ServerClientThread.cpp - Destructor con socketFD: %i.\n", this->clientSocket.socketGetFD());
 }
 
-ServerClientThread::ServerClientThread(Socket clientSocket) : Thread(), clientSocket(clientSocket) {
+ServerClientThread::ServerClientThread(int clientSocket) : Thread(), clientSocket(Socket(clientSocket)) {
     printf("ServerClientThread.cpp - ServerClientThread creado con éxito con socketFD: %i.\n", this->clientSocket.socketGetFD());
 }
 
