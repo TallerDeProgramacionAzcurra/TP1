@@ -6,24 +6,28 @@
 //  Copyright © 2016 Gaston Montes. All rights reserved.
 //
 
+#include <sys/socket.h>
 #include <stdlib.h>
 #include <string>
 
 #include "ServerClientThread.hpp"
 
 ServerClientThread::~ServerClientThread() {
-    printf("ServerClientThread.cpp - Destructor con socketFD: %i.\n", this->clientSocket.socketGetFD());
+    printf("ServerClientThread.cpp - Destructor con socketFD: %i.\n", this->clientSocketFD);
 }
 
-ServerClientThread::ServerClientThread(Socket &clientSocket) : Thread(), clientSocket(clientSocket) {
-    printf("ServerClientThread.cpp - ServerClientThread creado con éxito con socketFD: %i.\n", this->clientSocket.socketGetFD());
+ServerClientThread::ServerClientThread(int clientSocketFD) : Thread(), clientSocketFD(clientSocketFD) {
+    printf("ServerClientThread.cpp - ServerClientThread creado con éxito con socketFD: %i.\n", this->clientSocketFD);
 }
 
 void ServerClientThread::threadRun() {
     while(this->threadKeepTalking == true) {
         printf("ServerClientThread.cpp - Corriendo hilo para el send del server/client\n");
         std::string dataToSend = "Socket server envía datos al cliente.";
-        this->clientSocket.socketSend(dataToSend);
+        size_t bytesToSend = dataToSend.size();
+        size_t bytesSent = send(this->clientSocketFD, dataToSend.c_str(), bytesToSend, 0);
+        printf("ServerThread.cpp - Datos enviados: %lu/%lu cuyo texto: %s\n", bytesSent, bytesToSend, dataToSend.c_str());
+//        this->clientSocket.socketSend(dataToSend);
         this->threadStop();
     }
     

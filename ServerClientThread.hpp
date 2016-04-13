@@ -16,11 +16,11 @@
 
 class ServerClientThread : public Thread {
 private:
-    Socket &clientSocket;
+    int clientSocketFD;
     
 public:
     virtual ~ServerClientThread();
-    ServerClientThread(Socket &clientSocket);
+    ServerClientThread(int clientSocketFD);
     
     void threadRun();
     void threadStop();
