@@ -35,10 +35,10 @@ void ServerThread::threadRun() {
 
 //        Socket clientSocket(clientSocketFD);
         std::string dataToSend = "jsbfvjlsdnkndsksdvf";
-        int bytesToSend = sizeof(dataToSend);
-        size_t bytesSent = send(clientSocketFD, dataToSend.c_str(), sizeof(dataToSend), 0);
+        size_t bytesToSend = dataToSend.size();
+        size_t bytesSent = send(clientSocketFD, dataToSend.c_str(), bytesToSend, 0);
 //        clientSocket.socketSend(dataToSend);
-        printf("ServerThread.cpp - Datos enviados: %lu/%i cuyo texto: %s\n", bytesSent, bytesToSend, dataToSend.c_str());
+        printf("ServerThread.cpp - Datos enviados: %lu/%lu cuyo texto: %s\n", bytesSent, bytesToSend, dataToSend.c_str());
 //        ServerClientThread *serverClientThread = new ServerClientThread(clientSocket);
 //        
 //        clientThreadList->insert(listIterator, serverClientThread);
