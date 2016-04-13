@@ -35,7 +35,7 @@ void ServerClientThread::threadRun() {
         
         while(bytesSent < bytesToSend && socketIsOpen == true) {
             printf("ServerClientThread.cpp - Sending data \"%s\" to socketFD: %i\n", dataToSend.c_str(), this->clientSocketFD);
-            int result = send(this->clientSocketFD, dataToSend.c_str(), bytesSent, 0);
+            size_t result = send(this->clientSocketFD, dataToSend.c_str(), bytesSent, 0);
             
             if (result == kSocketError) {
                 printf("ServerClientThread.cpp - Socket send error: %sn\n", strerror(errno));
