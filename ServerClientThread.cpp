@@ -36,6 +36,6 @@ void ServerClientThread::threadStop() {
 }
 
 bool ServerClientThread::threadIsZombie() {
-    printf("ServerClientThread.cpp - Thread is Zombie called.\n");
+    printf("ServerClientThread.cpp - Thread is Zombie called: %i\n", !this->threadKeepTalking);
     return !this->threadKeepTalking;
 }
