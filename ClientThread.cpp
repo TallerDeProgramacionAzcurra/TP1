@@ -12,6 +12,9 @@ ClientThread::~ClientThread() {
     this->clientSocket.socketShutdown();
 }
 
+ClientThread::ClientThread(ClientSocket &clientSocket) : Thread(), clientSocket(clientSocket) {
+}
+
 void ClientThread::threadRun() {
     // @TODO: Gastón - Aca se recibe y envía datos.
     while(this->threadKeepTalking == true) {

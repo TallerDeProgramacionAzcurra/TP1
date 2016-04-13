@@ -14,17 +14,14 @@
 #include "CommonThread.hpp"
 #include "ClientSocket.hpp"
 
-static std::string const kSocketAddress = "127.0.0.1";
-static int const kSocketPort = 43210;
-
 class ClientThread : public Thread {
 private:
-    ClientSocket clientSocket;
+    ClientSocket &clientSocket;
     
 public:
     // Constructors and destructors.
     virtual ~ClientThread();
-    ClientThread() : Thread(), clientSocket(ClientSocket(kSocketAddress, kSocketPort)) {}
+    ClientThread(ClientSocket &clientSocket);
     
     void threadRun();
     void threadStop();

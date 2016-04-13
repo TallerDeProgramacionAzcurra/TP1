@@ -15,6 +15,13 @@
 #include "ClientSocket.hpp"
 
 ClientSocket::~ClientSocket() {
+    printf("ClientSocket.cpp - Destructor for socketFD: %i\n", this->socketFD);
+}
+
+ClientSocket::ClientSocket(const std::string serverAddress, int serverPort) : Socket() {
+    printf("ClientSocket.cpp - Constructor for socketFD: %i. Address: %s:%i\n", this->socketFD, serverAddress.c_str(), serverPort);
+    this->socketServerAddress = serverAddress;
+    this->socketServerPort = serverPort;
 }
 
 struct sockaddr_in ClientSocket::getServerAddress() {

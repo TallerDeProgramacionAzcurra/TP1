@@ -19,16 +19,13 @@ private:
     int socketServerPort;
     
     struct sockaddr_in getServerAddress();
-    void clientSocketConnect();
     
 public:
     // Constructors and destructors.
     virtual ~ClientSocket();
-    ClientSocket(const std::string serverAddress, int serverPort) : Socket() {
-        this->socketServerAddress = serverAddress;
-        this->socketServerPort = serverPort;
-        this->clientSocketConnect();
-    }
+    ClientSocket(const std::string serverAddress, int serverPort);
+    
+    void clientSocketConnect();
 };
 
 #endif /* ClientSocket_hpp */
