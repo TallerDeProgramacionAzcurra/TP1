@@ -121,6 +121,7 @@ std::string Socket::socketRecieve(size_t dataToRecieveSize) {
         
         printf("CommonSocket.cpp - Datos parciales recibidos: %lu/%lu Texto: %s\n", dataReceivedSize, dataReceivedSize, bufferStr.c_str());
         printf("CommonSocket.cpp - Acumulado: %s\n", dataReceived.c_str());
+        socketOpen = false;
     }
     
     printf("CommonSocket.cpp - Datos recibidos: %s\n", dataReceived.c_str());
