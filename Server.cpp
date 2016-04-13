@@ -20,31 +20,44 @@ static int const kSocketPort = 43210;
 static int const kSocketBacklog = 10;
 
 int main(int argc, const char * argv[]) {
-    int serverSocketFD = socket(AF_INET, SOCK_STREAM, 0);
-    int yes = 1;
-    setsockopt(serverSocketFD, SOL_SOCKET, SO_REUSEADDR, &yes, sizeof(int));
+//    int serverSocketFD = socket(AF_INET, SOCK_STREAM, 0);
+//    int yes = 1;
+//    setsockopt(serverSocketFD, SOL_SOCKET, SO_REUSEADDR, &yes, sizeof(int));
+//    
+//    struct sockaddr_in serverAddress;
+//    serverAddress.sin_family = AF_INET;
+//    serverAddress.sin_port = htons(kSocketPort);
+//    serverAddress.sin_addr.s_addr = INADDR_ANY;
+//    memset(&(serverAddress.sin_zero), '\0', 8);
+//    
+//    bind(serverSocketFD, (struct sockaddr *)&serverAddress, sizeof(struct sockaddr));
+//    
+//    listen(serverSocketFD, kSocketBacklog);
+//    
+//    struct sockaddr_in clientAddress;
+//    socklen_t addressInSize = sizeof(struct sockaddr_in);
+//    int clientSocketFD = accept(serverSocketFD, (struct sockaddr *)&clientAddress, &addressInSize);
+//    
+//    std::string dataToSend = "Socket server envía datos al cliente.";
+//    size_t result = send(clientSocketFD, dataToSend.c_str(), dataToSend.size(), 0);
+//    printf("El server envío %lu/%lu datos al cliente del texto: %s\n", result, dataToSend.size(), dataToSend.c_str());
+//    
+//    close(clientSocketFD);
+//    close(serverSocketFD);
     
-    struct sockaddr_in serverAddress;
-    serverAddress.sin_family = AF_INET;
-    serverAddress.sin_port = htons(kSocketPort);
-    serverAddress.sin_addr.s_addr = INADDR_ANY;
-    memset(&(serverAddress.sin_zero), '\0', 8);
+    ServerSocket serverSocket(kSocketPort, kSocketBacklog);
+    serverSocket.serverSocketBind();
+    serverSocket.serverSocketListenConnections();
     
-    bind(serverSocketFD, (struct sockaddr *)&serverAddress, sizeof(struct sockaddr));
-    
-    listen(serverSocketFD, kSocketBacklog);
-    
-    struct sockaddr_in clientAddress;
-    socklen_t addressInSize = sizeof(struct sockaddr_in);
-    int clientSocketFD = accept(serverSocketFD, (struct sockaddr *)&clientAddress, &addressInSize);
+    int clientSocketFD = serverSocket.serverSocketAcceptConnection();
     
     std::string dataToSend = "Socket server envía datos al cliente.";
     size_t result = send(clientSocketFD, dataToSend.c_str(), dataToSend.size(), 0);
     printf("El server envío %lu/%lu datos al cliente del texto: %s\n", result, dataToSend.size(), dataToSend.c_str());
     
     close(clientSocketFD);
-    close(serverSocketFD);
-//
+    serverSocket.socketShutdown();
+    
 //    ServerThread serverThread(serverSocket);
 //    
 //    char inputChar = 'a';

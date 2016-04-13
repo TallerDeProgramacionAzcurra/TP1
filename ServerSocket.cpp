@@ -20,25 +20,27 @@ ServerSocket::ServerSocket(int serverPort, int serverBacklog) : Socket() {
     this->serverPort = serverPort;
     this->serverBacklog = serverBacklog;
     
+    int yes = 1;
+    setsockopt(this->socketFD, SOL_SOCKET, SO_REUSEADDR, &yes, sizeof(int));
+    
     printf("ServerSocket.cpp - Socket creado con FD: %i. Puerto asociado: %i.\n", this->socketFD, this->serverPort);
 }
 
 
 struct sockaddr_in ServerSocket::serverSocketGetAddress() {
-    struct sockaddr_in newAddr;
-    newAddr.sin_family = AF_INET;
-    newAddr.sin_port = htons(this->serverPort);
-    newAddr.sin_addr.s_addr = INADDR_ANY;
-    memset(&(newAddr.sin_zero), 0, sizeof(newAddr.sin_zero));
-    return newAddr;
+    struct sockaddr_in serverAddress;
+    serverAddress.sin_family = AF_INET;
+    serverAddress.sin_port = htons(this->serverPort);
+    serverAddress.sin_addr.s_addr = INADDR_ANY;
+    memset(&(serverAddress.sin_zero), 0, sizeof(serverAddress.sin_zero));
+    return serverAddress;
 }
 
 void ServerSocket::serverSocketBind() {
     struct sockaddr_in  serverAddress = this->serverSocketGetAddress();
     
-    int result = bind(this->socketFD, (struct sockaddr *)&serverAddress, sizeof(serverAddress));
+    int result = bind(this->socketFD, (struct sockaddr *)&serverAddress, sizeof(struct sockaddr));
     if (result == kSocketError) {
-        
         printf("ServerSocket.cpp - Socket bind error: %s\n", strerror(errno));
         this->socketClose();
         exit(1);
@@ -55,21 +57,21 @@ void ServerSocket::serverSocketListenConnections() {
         exit(1);
     }
     
-    printf("ServerSocket.cpp - Escuchando conexiones...\n");
+    printf("ServerSocket.cpp - Escuchando conexiones. SocketFD: %i. Backlog: %i\n", this->socketFD, this->serverBacklog);
 }
 
-int ServerSocket::serverSocketAcceptConnection() {
-    socklen_t socketLength = sizeof(struct sockaddr_in);
-    struct sockaddr_in *addr;
+int ServerSocket::serverSocketAcceptConnection() {    
+    struct sockaddr_in clientAddress;
+    socklen_t addressInSize = sizeof(struct sockaddr_in);
     
-    int clientFD = accept(this->socketFD, (struct sockaddr *)&addr, &socketLength);
+    int clientFD = accept(this->socketFD, (struct sockaddr *)&clientAddress, &addressInSize);
     if (clientFD == kSocketError) {
         printf("ServerSocket.cpp - Socket accept error:%s\n", strerror(errno));
         this->socketClose();
         exit(1);
     }
     
-    printf("ServerSocket.cpp - Conexión entrante acceptada\n");
+    printf("ServerSocket.cpp - Conexión entrante acceptada. ServerFD: %i. ClientFD: %i\n", this->socketFD, clientFD);
     
     return clientFD;
 }
