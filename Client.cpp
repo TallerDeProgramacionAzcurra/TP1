@@ -6,8 +6,11 @@
 //  Copyright © 2016 Gaston Montes. All rights reserved.
 //
 
-#include <stdio.h>
+#include <sys/socket.h>
 #include <iostream>
+#include <string.h>
+#include <stdio.h>
+#include <vector>
 
 #include "ClientSocket.hpp"
 #include "ClientThread.hpp"
@@ -18,9 +21,17 @@ static int const kSocketPort = 43210;
 int main(int argc, const char * argv[]) {
     ClientSocket clientSocket(kSocketAddress, kSocketPort);
     clientSocket.clientSocketConnect();
-    std::string dataToSend = "Socket server envía datos al cliente.";
-    clientSocket.socketRecieve(dataToSend.size());
-    clientSocket.socketShutdown();
+    
+    std::string dataToRecieve = "Socket server envía datos al cliente.";
+    std::vector<char> buffer;
+    buffer.resize(dataToRecieve.size());
+    size_t result = recv(clientSocket.socketGetFD(), &(buffer[0]), dataToRecieve.size(), 0);
+    std::string bufferStr(buffer.begin(), buffer.end());
+    
+//    clientSocket.socketRecieve(dataToSend.size());
+//    clientSocket.socketShutdown();
+    
+    printf("Client.cpp - Datos rcibidos: %lu/%lu cuyo texto: %s\n", result, dataToRecieve.size(), bufferStr.c_str());
     
 //    ClientThread clientThread;
 //    
