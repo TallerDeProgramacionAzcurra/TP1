@@ -22,19 +22,19 @@ static std::string const kSocketAddress = "127.0.0.1";
 static int const kSocketPort = 43210;
 
 int main(int argc, const char * argv[]) {
-    ClientSocket clientSocket(kSocketAddress, kSocketPort);
-    clientSocket.clientSocketConnect();
-    
     char inputChar = 'a';
     while (inputChar != 'q' && inputChar != 'Q') {
+        ClientSocket clientSocket(kSocketAddress, kSocketPort);
+        clientSocket.clientSocketConnect();
+        
         ClientThread clientThread(clientSocket);
         printf("Ingrese la tecla 'Q' para detener la ejecución del Servidor: ");
         std::cin >> inputChar;
+        
         clientThread.threadStop();
         clientThread.threadJoin();
+        clientSocket.socketShutdown();
     }
-    
-    clientSocket.socketShutdown();
     
     return 0;
 }
