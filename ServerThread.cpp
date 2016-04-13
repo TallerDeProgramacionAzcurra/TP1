@@ -38,8 +38,8 @@ void ServerThread::threadRun() {
 //        size_t bytesSent = send(clientSocketFD, dataToSend.c_str(), bytesToSend, 0);
 //        printf("ServerThread.cpp - Datos enviados: %lu/%lu cuyo texto: %s\n", bytesSent, bytesToSend, dataToSend.c_str());
 
-        Socket *clientSocket = new Socket(clientSocketFD);
-        clientSocket->socketSend(dataToSend);
+        Socket clientSocket(clientSocketFD);
+        clientSocket.socketSend(dataToSend);
 //        ServerClientThread *serverClientThread = new ServerClientThread(clientSocket);
 //        
 //        clientThreadList->insert(listIterator, serverClientThread);
