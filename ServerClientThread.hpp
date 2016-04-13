@@ -20,7 +20,7 @@ private:
     
 public:
     virtual ~ServerClientThread();
-    ServerClientThread(int clientSocket) : Thread(), clientSocketFD(Socket(clientSocket)) {}
+    ServerClientThread(Socket clientSocket);
     
     void threadRun();
     void threadStop();

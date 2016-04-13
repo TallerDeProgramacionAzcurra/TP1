@@ -14,6 +14,10 @@
 ServerClientThread::~ServerClientThread() {
 }
 
+ServerClientThread::ServerClientThread(Socket clientSocket) : Thread(), clientSocketFD(clientSocket) {
+    printf("ServerClientThread.cpp - ServerClientThread creado con éxito");
+}
+
 void ServerClientThread::threadRun() {
     while(this->threadKeepTalking == true) {
         printf("ServerClientThread.cpp - Corriendo hilo para el send del server/client\n");

@@ -25,13 +25,7 @@ private:
 public:
     // Constructors and destructors.
     virtual ~ServerSocket();
-    ServerSocket(int serverPort, int serverBacklog) : Socket() {
-        this->serverPort = serverPort;
-        this->serverBacklog = serverBacklog;
-        
-        this->serverSocketBind();
-        this->serverSocketListenConnections();
-    }
+    ServerSocket(int serverPort, int serverBacklog);
     
     int serverSocketAcceptConnection();
 };

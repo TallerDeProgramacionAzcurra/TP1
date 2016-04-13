@@ -16,6 +16,17 @@
 ServerSocket::~ServerSocket() {
 }
 
+ServerSocket::ServerSocket(int serverPort, int serverBacklog) : Socket() {
+    this->serverPort = serverPort;
+    this->serverBacklog = serverBacklog;
+    
+    this->serverSocketBind();
+    this->serverSocketListenConnections();
+    
+    printf("ServerSocket.cpp - Socket creado con puerto asociado: %i.\n", this->serverPort);
+}
+
+
 struct sockaddr_in ServerSocket::serverSocketGetAddress() {
     struct sockaddr_in newAddr;
     newAddr.sin_family = AF_INET;
@@ -54,7 +65,6 @@ int ServerSocket::serverSocketAcceptConnection() {
     socklen_t socketLength = sizeof(struct sockaddr_in);
     struct sockaddr_in *addr;
     
-    printf("ServerSocket.cpp - Accepting connection for socketFD: %i\n",this->socketFD);
     int clientFD = accept(this->socketFD, (struct sockaddr *)&addr, &socketLength);
     if (clientFD == kSocketError) {
         printf("ServerSocket.cpp - Socket accept error:%s\n", strerror(errno));

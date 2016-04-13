@@ -32,6 +32,8 @@ Socket::Socket() {
 
 Socket::Socket(int socketFD) {
     this->socketFD = socketFD;
+    
+    printf("CommonSocket.cpp - Socket created with FD: %i\n", this->socketFD);
 }
 
 Socket::~Socket() {
@@ -47,6 +49,8 @@ void Socket::socketShutdown() {
         this->socketClose();
         exit(1);
     }
+    
+    printf("CommonSocket.cpp - Socket shutdown.");
 }
 
 void Socket::socketClose() {
@@ -56,6 +60,8 @@ void Socket::socketClose() {
         printf("CommonSocket.cpp - Socket close error: %s\n", strerror(errno));
         exit(1);
     }
+    
+    printf("CommonSocket.cpp - Socket cerrado.");
 }
 
 void Socket::socketSend(std::string &dataToSend) {
@@ -117,8 +123,4 @@ std::string Socket::socketRecieve(size_t dataToRecieveSize) {
     
     printf("CommonSocket.cpp - Datos recibidos: %s\n", dataReceived.c_str());
     return dataReceived;
-}
-
-int Socket::getSocketFD() {
-    return this->socketFD;
 }

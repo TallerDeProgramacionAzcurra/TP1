@@ -27,8 +27,8 @@ int main(int argc, const char * argv[]) {
     }
     
     serverSocket.socketShutdown();
-//    serverThread.threadStop();
-//    serverThread.threadJoin();
+    serverThread.threadStop();
+    serverThread.threadJoin();
     
     return 0;
 }
