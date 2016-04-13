@@ -34,7 +34,7 @@ void ServerThread::threadRun() {
         printf("ServerThread.cpp - Aceptando conexión con clientFD: %i.\n", clientSocketFD);
 
 //        Socket clientSocket(clientSocketFD);
-        std::string dataToSend = "jsbfvjlsdnkndsksdvf";
+        std::string dataToSend = "Socket server envía datos al cliente.";
         size_t bytesToSend = dataToSend.size();
         size_t bytesSent = send(clientSocketFD, dataToSend.c_str(), bytesToSend, 0);
 //        clientSocket.socketSend(dataToSend);
