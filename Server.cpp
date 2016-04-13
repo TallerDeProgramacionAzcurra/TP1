@@ -20,10 +20,14 @@ int main(int argc, const char * argv[]) {
     serverSocket.serverSocketBind();
     serverSocket.serverSocketListenConnections();
     
+    int clientSocketFD = serverSocket.serverSocketAcceptConnection();
+    Socket clientSocket(clientSocketFD);
+    
     std::string dataToSend = "Socket server envía datos al cliente.";
-    serverSocket.socketSend(dataToSend);
+    clientSocket.socketSend(dataToSend);
     
     serverSocket.socketShutdown();
+    clientSocket.socketShutdown();
     
 //
 //    ServerThread serverThread(serverSocket);
