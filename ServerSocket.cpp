@@ -19,7 +19,6 @@ ServerSocket::~ServerSocket() {
 ServerSocket::ServerSocket(int serverPort, int serverBacklog) : Socket() {
     this->serverPort = serverPort;
     this->serverBacklog = serverBacklog;
-    this->clientFD = 0;
     
     int yes = 1;
     setsockopt(this->socketFD, SOL_SOCKET, SO_REUSEADDR, &yes, sizeof(int));
