@@ -12,6 +12,7 @@
 #include "ServerClientThread.hpp"
 
 ServerClientThread::~ServerClientThread() {
+    printf("ServerClientThread.cpp - Destructor con socketFD: %i.\n", this->clientSocket.socketGetFD());
 }
 
 ServerClientThread::ServerClientThread(Socket clientSocket) : Thread(), clientSocket(clientSocket) {
