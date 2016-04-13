@@ -20,17 +20,23 @@ int main(int argc, const char * argv[]) {
     serverSocket.serverSocketBind();
     serverSocket.serverSocketListenConnections();
     
-    ServerThread serverThread(serverSocket);
-    
-    char inputChar = 'a';
-    while (inputChar != 'q' && inputChar != 'Q') {
-        printf("Ingrese la tecla 'Q' para detener la ejecución del Servidor: ");
-        std::cin >> inputChar;
-    }
+    std::string dataToSend = "Socket server envía datos al cliente.";
+    serverSocket.socketSend(dataToSend);
     
     serverSocket.socketShutdown();
-    serverThread.threadStop();
-    serverThread.threadJoin();
+    
+//
+//    ServerThread serverThread(serverSocket);
+//    
+//    char inputChar = 'a';
+//    while (inputChar != 'q' && inputChar != 'Q') {
+//        printf("Ingrese la tecla 'Q' para detener la ejecución del Servidor: ");
+//        std::cin >> inputChar;
+//    }
+//    
+//    serverSocket.socketShutdown();
+//    serverThread.threadStop();
+//    serverThread.threadJoin();
     
     return 0;
 }

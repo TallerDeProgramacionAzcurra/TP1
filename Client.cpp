@@ -20,48 +20,14 @@
 static std::string const kSocketAddress = "127.0.0.1";
 static int const kSocketPort = 43210;
 
-struct sockaddr_in getServerAddress() {
-    struct sockaddr_in newAddr;
-    newAddr.sin_family = AF_INET;
-    newAddr.sin_port = htons(kSocketPort);
-    memset(&(newAddr.sin_zero), 0, sizeof(newAddr.sin_zero));
-    inet_pton(AF_INET, kSocketAddress.c_str(), &newAddr.sin_addr);
-    return newAddr;
-}
-
-//struct sockaddr_in ClientSocket::socketGetAddr(int port) {
-//    struct sockaddr_in newAddr;
-//    newAddr.sin_family = AF_INET;
-//    newAddr.sin_port = htons(port);
-//    memset(&(newAddr.sin_zero), 0, sizeof(newAddr.sin_zero));
-//    return newAddr;
-//}
-
 int main(int argc, const char * argv[]) {
-//    ClientSocket clientSocket(kSocketAddress, kSocketPort);
-//    clientSocket.clientSocketConnect();
+    ClientSocket clientSocket(kSocketAddress, kSocketPort);
+    clientSocket.clientSocketConnect();
     
-    int socketFD = socket(AF_INET, SOCK_STREAM, 0);
-    printf("Client.cpp - SocketFD: %i\n", socketFD);
+    std::string dataToReceive = "Socket server envía datos al cliente.";
+    clientSocket.socketRecieve(dataToReceive.size());
     
-    struct sockaddr_in serverAddress = getServerAddress();
-    struct sockaddr *address = (struct sockaddr *)&serverAddress;
-    socklen_t addressSize = sizeof(struct sockaddr);
-    int result = connect(socketFD, address, addressSize);
-    printf("Client.cpp - Socket connect: %i\n", result);
-    
-    
-    std::string dataToRecieve = "Socket server envía datos al cliente.";
-    std::vector<char> buffer;
-    buffer.resize(dataToRecieve.size());
-    result = recv(socketFD, &(buffer[0]), dataToRecieve.size(), 0);
-    printf("Client.cpp - Receive result: %i\n", result);
-    std::string bufferStr(buffer.begin(), buffer.end());
-//
-//    clientSocket.socketRecieve(dataToSend.size());
-//    clientSocket.socketShutdown();
-    
-    printf("Client.cpp - Datos recibidos: %i/%lu cuyo texto: %s\n", result, dataToRecieve.size(), bufferStr.c_str());
+    clientSocket.socketShutdown();
     
 //    ClientThread clientThread;
 //    
