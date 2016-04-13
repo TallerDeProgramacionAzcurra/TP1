@@ -56,7 +56,7 @@ int main(int argc, const char * argv[]) {
 //    printf("El server envío %lu/%lu datos al cliente del texto: %s\n", result, dataToSend.size(), dataToSend.c_str());
     
     Socket *clientSocket = new Socket(clientSocketFD);
-    clientSocket->socketSend(dataToSend);
+    clientSocket->socketSendTo(clientSocketFD, dataToSend);
 
     close(clientSocketFD);
     delete clientSocket;

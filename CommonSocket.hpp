@@ -26,6 +26,7 @@ public:
 	void socketShutdown();
 
 	void socketSend(std::string &dataToSend);
+    void socketSendTo(int socketFD, std::string &dataToSend);
 	std::string socketRecieve(size_t dataToRecieveSize);
     
     int socketGetFD();
