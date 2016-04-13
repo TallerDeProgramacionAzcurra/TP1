@@ -34,23 +34,26 @@ int main(int argc, const char * argv[]) {
 //    clientSocket.clientSocketConnect();
     
     int socketFD = socket(AF_INET, SOCK_STREAM, 0);
+    printf("Client.cpp - SocketFD: %i\n", socketFD);
     
     struct sockaddr_in serverAddress = getServerAddress();
     struct sockaddr *address = (struct sockaddr *)&serverAddress;
     socklen_t addressSize = sizeof(struct sockaddr);
-    connect(socketFD, address, addressSize);
+    int result = connect(socketFD, address, addressSize);
+    printf("Client.cpp - Socket connect: %i\n", result);
     
     
     std::string dataToRecieve = "Socket server envía datos al cliente.";
     std::vector<char> buffer;
     buffer.resize(dataToRecieve.size());
-    size_t result = recv(socketFD, &(buffer[0]), dataToRecieve.size(), 0);
+    result = recv(socketFD, &(buffer[0]), dataToRecieve.size(), 0);
+    printf("Client.cpp - Receive result: %i\n", result);
     std::string bufferStr(buffer.begin(), buffer.end());
 //
 //    clientSocket.socketRecieve(dataToSend.size());
 //    clientSocket.socketShutdown();
     
-    printf("Client.cpp - Datos recibidos: %lu/%lu cuyo texto: %s\n", result, dataToRecieve.size(), bufferStr.c_str());
+    printf("Client.cpp - Datos recibidos: %i/%lu cuyo texto: %s\n", result, dataToRecieve.size(), bufferStr.c_str());
     
 //    ClientThread clientThread;
 //    
