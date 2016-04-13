@@ -28,8 +28,8 @@ struct sockaddr_in ClientSocket::getServerAddress() {
     struct sockaddr_in newAddr;
     newAddr.sin_family = AF_INET;
     newAddr.sin_port = htons(this->socketServerPort);
-    inet_pton(AF_INET, this->socketServerAddress.c_str(), &newAddr.sin_addr);
     memset(&(newAddr.sin_zero), 0, sizeof(newAddr.sin_zero));
+    inet_pton(AF_INET, this->socketServerAddress.c_str(), &newAddr.sin_addr);
     return newAddr;
 }
 
