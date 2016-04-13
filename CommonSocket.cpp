@@ -79,10 +79,11 @@ void Socket::socketSend(std::string &dataToSend) {
             printf("CommonSocket.cpp - Socket send error: %sn\n", strerror(errno));
             this->socketClose();
             exit(1);
-        } else if (result == kSocketClosed) {
-            printf("CommonSocket.cpp - Socket send close: %s\n", strerror(errno));
-            socketIsOpen = false;
         }
+//        else if (result == kSocketClosed) {
+//            printf("CommonSocket.cpp - Socket send close: %s\n", strerror(errno));
+//            socketIsOpen = false;
+//        }
         
         bytesSent += result;
         printf("CommonSocket.cpp - Datos parciales enviados: %lu/%lu\n", bytesSent, bytesToSend);
