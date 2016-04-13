@@ -18,9 +18,7 @@ private:
     int serverPort;
     int serverBacklog;
     
-    void serverSocketBind();
     struct sockaddr_in serverSocketGetAddress();
-    void serverSocketListenConnections();
     
 public:
     // Constructors and destructors.
@@ -28,6 +26,8 @@ public:
     ServerSocket(int serverPort, int serverBacklog);
     
     int serverSocketAcceptConnection();
+    void serverSocketBind();
+    void serverSocketListenConnections();
 };
 
 #endif /* ServerSocket_hpp */

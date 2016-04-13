@@ -17,6 +17,8 @@ static int const kSocketBacklog = 10;
 
 int main(int argc, const char * argv[]) {
     ServerSocket serverSocket(kSocketPort, kSocketBacklog);
+    serverSocket.serverSocketBind();
+    serverSocket.serverSocketListenConnections();
     
     ServerThread serverThread(serverSocket);
     

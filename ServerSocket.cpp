@@ -20,10 +20,7 @@ ServerSocket::ServerSocket(int serverPort, int serverBacklog) : Socket() {
     this->serverPort = serverPort;
     this->serverBacklog = serverBacklog;
     
-    this->serverSocketBind();
-    this->serverSocketListenConnections();
-    
-    printf("ServerSocket.cpp - Socket creado con puerto asociado: %i.\n", this->serverPort);
+    printf("ServerSocket.cpp - Socket creado con FD: %i. Puerto asociado: %i.\n", this->socketFD, this->serverPort);
 }
 
 
