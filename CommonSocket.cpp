@@ -15,7 +15,6 @@
 
 #include "CommonSocket.hpp"
 
-static int const kSocketClosed = 0;
 static int const kShutdownMode = 2;
 
 Socket::Socket() {

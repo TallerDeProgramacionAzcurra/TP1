@@ -11,6 +11,7 @@
 #include <string>
 
 static int const kSocketError = -1;
+static int const kSocketClosed = 0;
 
 class Socket {
 protected:

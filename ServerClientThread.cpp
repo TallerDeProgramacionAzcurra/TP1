@@ -7,10 +7,13 @@
 //
 
 #include <sys/socket.h>
+#include <unistd.h>
 #include <stdlib.h>
+#include <errno.h>
 #include <string>
 
 #include "ServerClientThread.hpp"
+#include "CommonSocket.hpp"
 
 ServerClientThread::~ServerClientThread() {
     printf("ServerClientThread.cpp - Destructor con socketFD: %i.\n", this->clientSocketFD);
@@ -23,11 +26,31 @@ ServerClientThread::ServerClientThread(int clientSocketFD) : Thread(), clientSoc
 void ServerClientThread::threadRun() {
     while(this->threadKeepTalking == true) {
         printf("ServerClientThread.cpp - Corriendo hilo para el send del server/client\n");
+        
         std::string dataToSend = "Socket server envía datos al cliente.";
-//        size_t bytesToSend = dataToSend.size();
-//        size_t bytesSent = send(this->clientSocketFD, dataToSend.c_str(), bytesToSend, 0);
-        Socket::socketSendDataToSocket(this->clientSocketFD, dataToSend);
-//        printf("ServerThread.cpp - Datos enviados: %lu/%lu cuyo texto: %s\n", bytesSent, bytesToSend, dataToSend.c_str());
+        size_t bytesSent = 0;
+        size_t bytesToSend = dataToSend.size();
+        bool socketIsOpen = true;
+        
+        while(bytesSent < bytesToSend && socketIsOpen == true) {
+            printf("ServerClientThread.cpp - Sending data \"%s\" to socketFD: %i\n", dataToSend.c_str(), this->clientSocketFD);
+            int result = send(this->clientSocketFD, dataToSend.c_str(), bytesSent, 0);
+            
+            if (result == kSocketError) {
+                printf("ServerClientThread.cpp - Socket send error: %sn\n", strerror(errno));
+                close(this->clientSocketFD);
+                exit(1);
+            } else if (result == kSocketClosed) {
+                printf("ServerClientThread.cpp - Socket send close: %s\n", strerror(errno));
+                socketIsOpen = false;
+            }
+            
+            bytesSent += result;
+            printf("ServerClientThread.cpp - Datos parciales enviados: %lu/%lu\n", bytesSent, bytesToSend);
+        }
+        
+        printf("ServerClientThread.cpp - Datos enviados: %lu/%lu cuyo texto: %s\n", bytesSent, bytesToSend, dataToSend.c_str());
+        
         this->threadStop();
     }
     
