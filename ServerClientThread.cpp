@@ -27,6 +27,7 @@ void ServerClientThread::threadRun() {
         size_t bytesToSend = dataToSend.size();
         size_t bytesSent = send(this->clientSocketFD, dataToSend.c_str(), bytesToSend, 0);
         printf("ServerThread.cpp - Datos enviados: %lu/%lu cuyo texto: %s\n", bytesSent, bytesToSend, dataToSend.c_str());
+        this->threadStop();
 
 //        std::string dataToSend = "Socket server envía datos al cliente.";
 //        Socket *clientSocket = new Socket(this->clientSocketFD);
