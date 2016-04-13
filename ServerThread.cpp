@@ -34,31 +34,18 @@ void ServerThread::threadRun() {
         
         printf("ServerThread.cpp - Aceptando conexión con clientFD: %i.\n", clientSocketFD);
         
-        
-        
-//        std::string dataToSend = "Socket server envía datos al cliente.";
-//        size_t bytesToSend = dataToSend.size();
-//        size_t bytesSent = send(clientSocketFD, dataToSend.c_str(), bytesToSend, 0);
-//        printf("ServerThread.cpp - Datos enviados: %lu/%lu cuyo texto: %s\n", bytesSent, bytesToSend, dataToSend.c_str());
-//
-//        close(clientSocketFD);
-//        Socket clientSocket(clientSocketFD);
-//        clientSocket.socketSend(dataToSend);
-        
-        
         ServerClientThread *serverClientThread = new ServerClientThread(clientSocketFD);
-
         clientThreadList->insert(listIterator, serverClientThread);
 
-        for (listIterator = clientThreadList->begin(); listIterator != clientThreadList->end(); listIterator++) {
-            ServerClientThread *clientThread = *listIterator;
-
-            if (clientThread->threadIsZombie() == true) {
-                clientThread->threadStop();
-                clientThread->threadJoin();
-                clientThreadList->erase(listIterator);
-            }
-        }
+//        for (listIterator = clientThreadList->begin(); listIterator != clientThreadList->end(); listIterator++) {
+//            ServerClientThread *clientThread = *listIterator;
+//
+//            if (clientThread->threadIsZombie() == true) {
+//                clientThread->threadStop();
+//                clientThread->threadJoin();
+//                clientThreadList->erase(listIterator);
+//            }
+//        }
     }
     
     printf("ServerThread.cpp - Salí en el while del server.\n");
@@ -67,6 +54,8 @@ void ServerThread::threadRun() {
         ServerClientThread *clientThread = *listIterator;
         clientThread->threadStop();
         clientThread->threadJoin();
+        clientThreadList->erase(listIterator);
+        delete clientThread;
     }
     
     delete clientThreadList;

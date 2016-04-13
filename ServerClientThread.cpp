@@ -31,8 +31,6 @@ void ServerClientThread::threadRun() {
         std::string dataToSend = "Socket server envía datos al cliente.";
         Socket *clientSocket = new Socket(this->clientSocketFD);
         clientSocket->socketSend(dataToSend);
-        
-        this->threadStop();
         delete clientSocket;
     }
     
