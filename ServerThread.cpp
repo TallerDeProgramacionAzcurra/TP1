@@ -24,9 +24,8 @@ void ServerThread::threadRun() {
     std::list<ServerClientThread *> *clientThreadList = new std::list<ServerClientThread *>;
     std::list<ServerClientThread *>::iterator listIterator = clientThreadList->end();
     
+    printf("ServerThread.cpp - Entre en el while del server.\n");
     while(this->threadKeepTalking == true) {
-        printf("ServerThread.cpp - Entre en el while del server.\n");
-        
         int clientSocketFD = this->serverSocket.serverSocketAcceptConnection();
         
         printf("ServerThread.cpp - Aceptando conexión.\n");
@@ -35,16 +34,16 @@ void ServerThread::threadRun() {
         
         clientThreadList->insert(listIterator, serverClientThread);
         
-//        for (listIterator = clientThreadList->begin(); listIterator != clientThreadList->end(); listIterator++) {
-//            ServerClientThread *clientThread = *listIterator;
-//            
-//            if (clientThread->threadIsZombie() == true) {
-//                clientThread->threadStop();
-//                clientThread->threadJoin();
-//                clientThreadList->erase(listIterator);
-//                delete clientThread;
-//            }
-//        }
+        for (listIterator = clientThreadList->begin(); listIterator != clientThreadList->end(); listIterator++) {
+            ServerClientThread *clientThread = *listIterator;
+            
+            if (clientThread->threadIsZombie() == true) {
+                clientThread->threadStop();
+                clientThread->threadJoin();
+                clientThreadList->erase(listIterator);
+                delete clientThread;
+            }
+        }
     }
     
     printf("ServerThread.cpp - Salí en el while del server.\n");

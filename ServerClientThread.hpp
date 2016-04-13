@@ -16,7 +16,7 @@
 
 class ServerClientThread : public Thread {
 private:
-    Socket clientSocket;
+    Socket *clientSocket;
     
 public:
     virtual ~ServerClientThread();
