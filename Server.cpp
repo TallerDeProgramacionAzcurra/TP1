@@ -26,6 +26,8 @@ int main(int argc, const char * argv[]) {
         std::cin >> inputChar;
     }
     
+    printf("Paso por aca?: \n");
+    
     serverSocket.socketShutdown();
     serverThread.threadStop();
     serverThread.threadJoin();
