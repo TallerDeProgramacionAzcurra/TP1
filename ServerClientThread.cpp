@@ -26,8 +26,7 @@ void ServerClientThread::threadRun() {
         printf("ServerClientThread.cpp - Corriendo hilo para el send del server/client\n");
         std::string dataToSend = "Socket server envía datos al cliente.";
         this->clientSocket->socketSend(dataToSend);
-        printf("ServerClientThread.cpp - Envíe correctamente los datos\n");
-        this->threadKeepTalking = false;
+        this->threadStop();
     }
     
     printf("ServerClientThread.cpp - Salí del ThreadRun.\n");

@@ -72,6 +72,7 @@ void Socket::socketSend(std::string &dataToSend) {
     bool socketIsOpen = true;
     
     while(bytesSent < bytesToSend && socketIsOpen == true) {
+        printf("CommonSocket.cpp - Sending data \"%s\" to socketFD: %i", dataToSend.c_str(), this->socketFD);
         int result = send(this->socketFD, dataToSend.c_str(), bytesSent, 0);
         
         if (result == kSocketError) {
@@ -79,7 +80,7 @@ void Socket::socketSend(std::string &dataToSend) {
             this->socketClose();
             exit(1);
         } else if (result == kSocketClosed) {
-            printf("CommonSocket.cpp - Socket receive close: %sn\n", strerror(errno));
+            printf("CommonSocket.cpp - Socket send close: %s\n", strerror(errno));
             socketIsOpen = false;
         }
         
