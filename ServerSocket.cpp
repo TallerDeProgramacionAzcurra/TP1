@@ -60,7 +60,7 @@ void ServerSocket::serverSocketListenConnections() {
     printf("ServerSocket.cpp - Escuchando conexiones. SocketFD: %i. Backlog: %i\n", this->socketFD, this->serverBacklog);
 }
 
-Socket ServerSocket::serverSocketAcceptConnection() {
+int ServerSocket::serverSocketAcceptConnection() {
     struct sockaddr_in clientAddress;
     socklen_t addressInSize = sizeof(struct sockaddr_in);
     
@@ -73,5 +73,5 @@ Socket ServerSocket::serverSocketAcceptConnection() {
     
     printf("ServerSocket.cpp - Conexión entrante acceptada. ServerFD: %i. ClientFD: %i\n", this->socketFD, clientFD);
     
-    return Socket(clientFD);
+    return clientFD;
 }

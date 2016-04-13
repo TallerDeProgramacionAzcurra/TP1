@@ -17,11 +17,11 @@
 #include "CommonSocket.hpp"
 
 ServerClientThread::~ServerClientThread() {
-    printf("ServerClientThread.cpp - Destructor con socketFD: %i.\n", this->clientSocket.socketGetFD());
+    printf("ServerClientThread.cpp - Destructor con socketFD: %i.\n", this->clientSocketFD);
 }
 
-ServerClientThread::ServerClientThread(Socket &clientSocket) : Thread(), clientSocket(clientSocket) {
-    printf("ServerClientThread.cpp - ServerClientThread creado con éxito con socketFD: %i.\n", this->clientSocket.socketGetFD());
+ServerClientThread::ServerClientThread(int clientSocketFD) : Thread(), clientSocketFD(clientSocketFD) {
+    printf("ServerClientThread.cpp - ServerClientThread creado con éxito con socketFD: %i.\n", this->clientSocketFD);
 }
 
 void ServerClientThread::threadRun() {
@@ -29,9 +29,11 @@ void ServerClientThread::threadRun() {
         printf("ServerClientThread.cpp - Corriendo hilo para el send del server/client\n");
         
         std::string dataToSend = "Socket server envía datos al cliente.";
-        this->clientSocket.socketSend(dataToSend);
+        Socket *newClientSocket = new Socket(this->clientSocketFD);
+        newClientSocket->socketSend(dataToSend);
         
         this->threadStop();
+        delete newClientSocket;
     }
     
     printf("ServerClientThread.cpp - Salí del ThreadRun.\n");
