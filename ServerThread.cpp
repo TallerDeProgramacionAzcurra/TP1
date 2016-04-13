@@ -21,7 +21,8 @@ ServerThread::ServerThread(ServerSocket &serverSocket) : Thread(), serverSocket(
 
 void ServerThread::threadRun() {
     printf("ServerThread.cpp - Running ThreadRun para aceptar clientes.\n");
-    std::list<ServerClientThread> *clientThreadList = new std::list<ServerClientThread>;
+    std::list<ServerClientThread *> *clientThreadList = new std::list<ServerClientThread *>;
+    std::list<ServerClientThread *>::iterator listIterator = clientThreadList->end();
     
     while(this->threadKeepTalking == true) {
         printf("ServerThread.cpp - Entre en el while del server.\n");
@@ -34,29 +35,27 @@ void ServerThread::threadRun() {
         
         ServerClientThread *serverClientThread = new ServerClientThread(clientSocket);
         
-        std::list<ServerClientThread>::iterator listIterator = clientThreadList->end();
-        clientThreadList->insert(listIterator, *serverClientThread);
+        clientThreadList->insert(listIterator, serverClientThread);
         
         for (listIterator = clientThreadList->begin(); listIterator != clientThreadList->end(); listIterator++) {
-            ServerClientThread clientThread = *listIterator;
+            ServerClientThread *clientThread = *listIterator;
             
-            if (clientThread.threadIsZombie() == true) {
-                clientThread.threadStop();
-                clientThread.threadJoin();
+            if (clientThread->threadIsZombie() == true) {
+                clientThread->threadStop();
+                clientThread->threadJoin();
                 clientThreadList->erase(listIterator);
-                delete &clientThread;
+                delete clientThread;
             }
         }
     }
     
     printf("ServerThread.cpp - Salí en el while del server.\n");
     
-    std::list<ServerClientThread>::iterator listIterator = clientThreadList->end();
     for (listIterator = clientThreadList->begin(); listIterator != clientThreadList->end(); listIterator++) {
-        ServerClientThread clientThread = *listIterator;
-        clientThread.threadStop();
-        clientThread.threadJoin();
-        delete &clientThread;
+        ServerClientThread *clientThread = *listIterator;
+        clientThread->threadStop();
+        clientThread->threadJoin();
+        delete clientThread;
     }
     
     delete clientThreadList;
