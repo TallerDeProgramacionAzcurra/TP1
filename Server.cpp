@@ -49,13 +49,12 @@ int main(int argc, const char * argv[]) {
     serverSocket.serverSocketBind();
     serverSocket.serverSocketListenConnections();
     
-    int clientSocketFD = serverSocket.serverSocketAcceptConnection();
-    
+    Socket clientSocket = serverSocket.serverSocketAcceptConnection();
+
     std::string dataToSend = "Socket server envía datos al cliente.";
-    size_t result = send(clientSocketFD, dataToSend.c_str(), dataToSend.size(), 0);
-    printf("El server envío %lu/%lu datos al cliente del texto: %s\n", result, dataToSend.size(), dataToSend.c_str());
+    clientSocket.socketSend(dataToSend);
     
-    close(clientSocketFD);
+    clientSocket.socketShutdown();
     serverSocket.socketShutdown();
     
 //    ServerThread serverThread(serverSocket);
