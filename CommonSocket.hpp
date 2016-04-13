@@ -27,6 +27,8 @@ public:
 
 	void socketSend(std::string &dataToSend);
 	std::string socketRecieve(size_t dataToRecieveSize);
+    
+    int socketGetFD();
 };
 
 #endif /* COMMONSOCKET_HPP_ */

@@ -14,15 +14,15 @@
 ServerClientThread::~ServerClientThread() {
 }
 
-ServerClientThread::ServerClientThread(Socket clientSocket) : Thread(), clientSocketFD(clientSocket) {
-    printf("ServerClientThread.cpp - ServerClientThread creado con éxito");
+ServerClientThread::ServerClientThread(Socket clientSocket) : Thread(), clientSocket(clientSocket) {
+    printf("ServerClientThread.cpp - ServerClientThread creado con éxito con socketFD: %i.\n", this->clientSocket.socketGetFD());
 }
 
 void ServerClientThread::threadRun() {
     while(this->threadKeepTalking == true) {
         printf("ServerClientThread.cpp - Corriendo hilo para el send del server/client\n");
         std::string dataToSend = "Socket server envía datos al cliente.";
-        this->clientSocketFD.socketSend(dataToSend);
+        this->clientSocket.socketSend(dataToSend);
         printf("ServerClientThread.cpp - Envíe correctamente los datos\n");
         this->threadKeepTalking = false;
     }
