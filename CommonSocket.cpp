@@ -70,7 +70,7 @@ void Socket::socketSend(std::string &dataToSend) {
     
     while(bytesSent < bytesToSend && socketIsOpen == true) {
         printf("CommonSocket.cpp - Sending data \"%s\" to socketFD: %i\n", dataToSend.c_str(), this->socketFD);
-        int result = send(this->socketFD, dataToSend.c_str(), bytesSent, 0);
+        int result = send(this->socketFD, dataToSend.c_str(), bytesToSend, 0);
         
         if (result == kSocketError) {
             printf("CommonSocket.cpp - Socket send error: %sn\n", strerror(errno));
