@@ -29,14 +29,15 @@ void ServerThread::threadRun() {
     while(this->threadKeepTalking == true) {
         printf("ServerThread.cpp - Nueva iteración del while.\n");
         
-        Socket clientSocket = this->serverSocket.serverSocketAcceptConnection();
+        int clientSocketFD = this->serverSocket.serverSocketAcceptConnection();
         
-        printf("ServerThread.cpp - Aceptando conexión con clientFD: %i.\n", clientSocket.socketGetFD());
+        printf("ServerThread.cpp - Aceptando conexión con clientFD: %i.\n", clientSocketFD);
         
         std::string dataToSend = "Socket server envía datos al cliente.";
 //        size_t bytesToSend = dataToSend.size();
 //        size_t bytesSent = send(clientSocketFD, dataToSend.c_str(), bytesToSend, 0);
 //        printf("ServerThread.cpp - Datos enviados: %lu/%lu cuyo texto: %s\n", bytesSent, bytesToSend, dataToSend.c_str())
+        Socket clientSocket(clientSocketFD);
         clientSocket.socketSend(dataToSend);
 //        ServerClientThread *serverClientThread = new ServerClientThread(clientSocket);
 //        

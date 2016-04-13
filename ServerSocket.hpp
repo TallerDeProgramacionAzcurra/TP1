@@ -18,6 +18,8 @@ private:
     int serverPort;
     int serverBacklog;
     
+    int clientFD;
+    
     struct sockaddr_in serverSocketGetAddress();
     
 public:
@@ -25,7 +27,7 @@ public:
     virtual ~ServerSocket();
     ServerSocket(int serverPort, int serverBacklog);
     
-    Socket serverSocketAcceptConnection();
+    int serverSocketAcceptConnection();
     void serverSocketBind();
     void serverSocketListenConnections();
 };

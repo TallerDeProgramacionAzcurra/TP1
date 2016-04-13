@@ -19,6 +19,7 @@ ServerSocket::~ServerSocket() {
 ServerSocket::ServerSocket(int serverPort, int serverBacklog) : Socket() {
     this->serverPort = serverPort;
     this->serverBacklog = serverBacklog;
+    this->clientFD = 0;
     
     int yes = 1;
     setsockopt(this->socketFD, SOL_SOCKET, SO_REUSEADDR, &yes, sizeof(int));
@@ -60,11 +61,11 @@ void ServerSocket::serverSocketListenConnections() {
     printf("ServerSocket.cpp - Escuchando conexiones. SocketFD: %i. Backlog: %i\n", this->socketFD, this->serverBacklog);
 }
 
-Socket ServerSocket::serverSocketAcceptConnection() {
+int ServerSocket::serverSocketAcceptConnection() {
     struct sockaddr_in clientAddress;
     socklen_t addressInSize = sizeof(struct sockaddr_in);
     
-    int clientFD = accept(this->socketFD, (struct sockaddr *)&clientAddress, &addressInSize);
+    this->clientFD = accept(this->socketFD, (struct sockaddr *)&clientAddress, &addressInSize);
     if (clientFD == kSocketError) {
         printf("ServerSocket.cpp - Socket accept error:%s\n", strerror(errno));
         this->socketClose();
@@ -73,5 +74,5 @@ Socket ServerSocket::serverSocketAcceptConnection() {
     
     printf("ServerSocket.cpp - Conexión entrante acceptada. ServerFD: %i. ClientFD: %i\n", this->socketFD, clientFD);
     
-    return Socket(clientFD);
+    return this->clientFD;
 }

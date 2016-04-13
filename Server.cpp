@@ -49,7 +49,8 @@ int main(int argc, const char * argv[]) {
     serverSocket.serverSocketBind();
     serverSocket.serverSocketListenConnections();
     
-    Socket clientSocket = serverSocket.serverSocketAcceptConnection();
+    int clientSocketFD = serverSocket.serverSocketAcceptConnection();
+    Socket clientSocket(clientSocketFD);
 
     std::string dataToSend = "Socket server envía datos al cliente.";
     clientSocket.socketSend(dataToSend);
