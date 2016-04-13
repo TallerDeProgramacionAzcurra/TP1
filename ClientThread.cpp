@@ -17,6 +17,7 @@ void ClientThread::threadRun() {
     while(this->threadKeepTalking == true) {
         std::string dataToSend = "Socket server envía datos al cliente.";
         this->clientSocket.socketRecieve(dataToSend.size());
+        this->threadKeepTalking == false;
     }
 }
 
