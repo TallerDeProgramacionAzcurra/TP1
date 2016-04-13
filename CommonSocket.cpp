@@ -89,6 +89,32 @@ void Socket::socketSend(std::string &dataToSend) {
     printf("CommonSocket.cpp - Datos enviados: %lu/%lu cuyo texto: %s\n", bytesSent, bytesToSend, dataToSend.c_str());
 }
 
+void Socket::socketSendDataToSocket(int sockedFD, std::string &dataToSend) {
+    // TODO: Gaston - Implementar el protocolo.
+    size_t bytesSent = 0;
+    size_t bytesToSend = dataToSend.size();
+    bool socketIsOpen = true;
+    
+    while(bytesSent < bytesToSend && socketIsOpen == true) {
+        printf("CommonSocket.cpp - Sending data \"%s\" to socketFD: %i\n", dataToSend.c_str(), sockedFD);
+        int result = send(sockedFD, dataToSend.c_str(), bytesSent, 0);
+        
+        if (result == kSocketError) {
+            printf("CommonSocket.cpp - Socket send error: %sn\n", strerror(errno));
+            close(sockedFD);
+            exit(1);
+        } else if (result == kSocketClosed) {
+            printf("CommonSocket.cpp - Socket send close: %s\n", strerror(errno));
+            socketIsOpen = false;
+        }
+        
+        bytesSent += result;
+        printf("CommonSocket.cpp - Datos parciales enviados: %lu/%lu\n", bytesSent, bytesToSend);
+    }
+    
+    printf("CommonSocket.cpp - Datos enviados: %lu/%lu cuyo texto: %s\n", bytesSent, bytesToSend, dataToSend.c_str());
+}
+
 std::string Socket::socketRecieve(size_t dataToRecieveSize) {
     // TODO: Gaston - Implementar el protocolo.
     printf("CommonSocket.cpp - Data to receive length: %lu\n", dataToRecieveSize);
