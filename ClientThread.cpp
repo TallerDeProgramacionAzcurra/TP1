@@ -9,7 +9,6 @@
 #include "ClientThread.hpp"
 
 ClientThread::~ClientThread() {
-    this->clientSocket.socketShutdown();
 }
 
 ClientThread::ClientThread(ClientSocket &clientSocket) : Thread(), clientSocket(clientSocket) {
@@ -18,9 +17,9 @@ ClientThread::ClientThread(ClientSocket &clientSocket) : Thread(), clientSocket(
 void ClientThread::threadRun() {
     // @TODO: Gastón - Aca se recibe y envía datos.
     while(this->threadKeepTalking == true) {
-        std::string dataToSend = "Socket server envía datos al cliente.";
-        this->clientSocket.socketRecieve(dataToSend.size());
-        this->threadKeepTalking = false;
+        std::string dataToReceive = "Socket server envía datos al cliente.";
+        this->clientSocket.socketRecieve(dataToReceive.size());
+        this->threadStop();
     }
 }
 
