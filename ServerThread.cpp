@@ -31,21 +31,23 @@ void ServerThread::threadRun() {
         int clientSocketFD = this->serverSocket.serverSocketAcceptConnection();
         
         printf("ServerThread.cpp - Aceptando conexión con clientFD: %i.\n", clientSocketFD);
-        
+
         Socket clientSocket(clientSocketFD);
-        ServerClientThread *serverClientThread = new ServerClientThread(clientSocket);
-        
-        clientThreadList->insert(listIterator, serverClientThread);
-        
-        for (listIterator = clientThreadList->begin(); listIterator != clientThreadList->end(); listIterator++) {
-            ServerClientThread *clientThread = *listIterator;
-            
-            if (clientThread->threadIsZombie() == true) {
-                clientThread->threadStop();
-                clientThread->threadJoin();
-                clientThreadList->erase(listIterator);
-            }
-        }
+        std::string dataToSend = "jsbfvjlsdnkndsksdvf";
+        clientSocket.socketSend(dataToSend);
+//        ServerClientThread *serverClientThread = new ServerClientThread(clientSocket);
+//        
+//        clientThreadList->insert(listIterator, serverClientThread);
+//        
+//        for (listIterator = clientThreadList->begin(); listIterator != clientThreadList->end(); listIterator++) {
+//            ServerClientThread *clientThread = *listIterator;
+//            
+//            if (clientThread->threadIsZombie() == true) {
+//                clientThread->threadStop();
+//                clientThread->threadJoin();
+//                clientThreadList->erase(listIterator);
+//            }
+//        }
     }
     
     printf("ServerThread.cpp - Salí en el while del server.\n");
