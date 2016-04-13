@@ -24,10 +24,18 @@ struct sockaddr_in getServerAddress() {
     struct sockaddr_in newAddr;
     newAddr.sin_family = AF_INET;
     newAddr.sin_port = htons(kSocketPort);
-    inet_pton(AF_INET, kSocketAddress.c_str(), &newAddr.sin_addr);
     memset(&(newAddr.sin_zero), 0, sizeof(newAddr.sin_zero));
+    inet_pton(AF_INET, kSocketAddress.c_str(), &newAddr.sin_addr);
     return newAddr;
 }
+
+//struct sockaddr_in ClientSocket::socketGetAddr(int port) {
+//    struct sockaddr_in newAddr;
+//    newAddr.sin_family = AF_INET;
+//    newAddr.sin_port = htons(port);
+//    memset(&(newAddr.sin_zero), 0, sizeof(newAddr.sin_zero));
+//    return newAddr;
+//}
 
 int main(int argc, const char * argv[]) {
 //    ClientSocket clientSocket(kSocketAddress, kSocketPort);
