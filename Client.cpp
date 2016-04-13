@@ -25,11 +25,16 @@ int main(int argc, const char * argv[]) {
     ClientSocket clientSocket(kSocketAddress, kSocketPort);
     clientSocket.clientSocketConnect();
     
-    ClientThread clientThread(clientSocket);
+    char inputChar = 'a';
+    while (inputChar != 'q' && inputChar != 'Q') {
+        ClientThread clientThread(clientSocket);
+        printf("Ingrese la tecla 'Q' para detener la ejecución del Servidor: ");
+        std::cin >> inputChar;
+        clientThread.threadStop();
+        clientThread.threadJoin();
+    }
     
     clientSocket.socketShutdown();
-    clientThread.threadStop();
-    clientThread.threadJoin();
     
     return 0;
 }
