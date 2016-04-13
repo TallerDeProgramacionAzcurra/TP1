@@ -25,7 +25,7 @@ public:
     virtual ~ServerSocket();
     ServerSocket(int serverPort, int serverBacklog);
     
-    int serverSocketAcceptConnection();
+    Socket serverSocketAcceptConnection();
     void serverSocketBind();
     void serverSocketListenConnections();
 };

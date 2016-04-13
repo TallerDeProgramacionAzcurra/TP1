@@ -30,11 +30,11 @@ void ServerThread::threadRun() {
     while(this->threadKeepTalking == true) {
         printf("ServerThread.cpp - Nueva iteración del while.\n");
         
-        int clientSocketFD = this->serverSocket.serverSocketAcceptConnection();
+        Socket clientSocket = this->serverSocket.serverSocketAcceptConnection();
         
-        printf("ServerThread.cpp - Aceptando conexión con clientFD: %i.\n", clientSocketFD);
+        printf("ServerThread.cpp - Aceptando conexión con clientFD: %i.\n", clientSocket.socketGetFD());
         
-        ServerClientThread *serverClientThread = new ServerClientThread(clientSocketFD);
+        ServerClientThread *serverClientThread = new ServerClientThread(clientSocket);
         clientThreadList->insert(listIterator, serverClientThread);
 
         for (listIterator = clientThreadList->begin(); listIterator != clientThreadList->end(); listIterator++) {
