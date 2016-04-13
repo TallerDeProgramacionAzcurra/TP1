@@ -62,5 +62,6 @@ void ServerThread::threadRun() {
 }
 
 void ServerThread::threadStop() {
+    printf("ServerThread.cpp - Stop server called.\n");
     this->threadKeepTalking = false;
 }
