@@ -41,7 +41,7 @@ int main(int argc, const char * argv[]) {
 //    std::string dataToSend = "Socket server envía datos al cliente.";
 //    size_t result = send(clientSocketFD, dataToSend.c_str(), dataToSend.size(), 0);
 //    printf("El server envío %lu/%lu datos al cliente del texto: %s\n", result, dataToSend.size(), dataToSend.c_str());
-//    
+//
 //    close(clientSocketFD);
 //    close(serverSocketFD);
     
@@ -50,12 +50,11 @@ int main(int argc, const char * argv[]) {
     serverSocket.serverSocketListenConnections();
     
     int clientSocketFD = serverSocket.serverSocketAcceptConnection();
-    Socket clientSocket(clientSocketFD);
 
     std::string dataToSend = "Socket server envía datos al cliente.";
-    clientSocket.socketSend(dataToSend);
-    
-    clientSocket.socketShutdown();
+    size_t result = send(clientSocketFD, dataToSend.c_str(), dataToSend.size(), 0);
+    printf("El server envío %lu/%lu datos al cliente del texto: %s\n", result, dataToSend.size(), dataToSend.c_str());
+
     serverSocket.socketShutdown();
     
 //    ServerThread serverThread(serverSocket);
