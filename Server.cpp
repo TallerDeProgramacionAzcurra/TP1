@@ -8,6 +8,7 @@
 
 #include <netinet/in.h>
 #include <sys/socket.h>
+#include <unistd.h>
 #include <iostream>
 #include <stdio.h>
 
@@ -39,6 +40,9 @@ int main(int argc, const char * argv[]) {
     std::string dataToSend = "Socket server envía datos al cliente.";
     size_t result = send(clientSocketFD, dataToSend.c_str(), dataToSend.size(), 0);
     printf("El server envío %lu/%lu datos al cliente del texto: %s\n", result, dataToSend.size(), dataToSend.c_str());
+    
+    close(clientSocketFD);
+    close(serverSocketFD);
 //
 //    ServerThread serverThread(serverSocket);
 //    

@@ -9,6 +9,7 @@
 #include <netinet/in.h>
 #include <arpa/inet.h>
 #include <sys/socket.h>
+#include <unistd.h>
 #include <iostream>
 #include <string.h>
 #include <stdio.h>
@@ -36,6 +37,8 @@ int main(int argc, const char * argv[]) {
     size_t result = recv(clientSocketFD, buffer, dataToReceive.size(), 0);
     buffer[result] = '\0';
     printf("El cliente recibió %lu/%lu datos del server. Texto recibido: %s\n", result, dataToReceive.size(), buffer);
+    
+    close(clientSocketFD);
     
 //    ClientThread clientThread;
 //    
