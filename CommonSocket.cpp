@@ -50,7 +50,7 @@ void Socket::socketShutdown() {
         exit(1);
     }
     
-    printf("CommonSocket.cpp - Socket shutdown.");
+    printf("CommonSocket.cpp - Socket shutdown. SocketFD: %i.\n", this->socketFD);
 }
 
 void Socket::socketClose() {
@@ -61,7 +61,7 @@ void Socket::socketClose() {
         exit(1);
     }
     
-    printf("CommonSocket.cpp - Socket cerrado.");
+    printf("CommonSocket.cpp - Socket cerrado. SocketFD: %i.\n", this->socketFD);
 }
 
 void Socket::socketSend(std::string &dataToSend) {

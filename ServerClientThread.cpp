@@ -26,12 +26,16 @@ void ServerClientThread::threadRun() {
         printf("ServerClientThread.cpp - Envíe correctamente los datos\n");
         this->threadKeepTalking = false;
     }
+    
+    printf("ServerClientThread.cpp - Salí del ThreadRun.\n");
 }
 
 void ServerClientThread::threadStop() {
+    printf("ServerClientThread.cpp - Stopping Thread.\n");
     this->threadKeepTalking = false;
 }
 
 bool ServerClientThread::threadIsZombie() {
+    printf("ServerClientThread.cpp - Thread is Zombie called.\n");
     return !this->threadKeepTalking;
 }
