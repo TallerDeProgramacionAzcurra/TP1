@@ -41,9 +41,10 @@ void ServerThread::threadRun() {
                 clientThread->threadStop();
                 clientThread->threadJoin();
                 clientThreadList->erase(listIterator);
-                delete clientThread;
             }
         }
+        
+        delete serverClientThread;
     }
     
     printf("ServerThread.cpp - Salí en el while del server.\n");
@@ -52,7 +53,6 @@ void ServerThread::threadRun() {
         ServerClientThread *clientThread = *listIterator;
         clientThread->threadStop();
         clientThread->threadJoin();
-        delete clientThread;
     }
     
     delete clientThreadList;
