@@ -33,11 +33,11 @@ int main(int argc, const char * argv[]) {
     connect(clientSocketFD, (struct sockaddr *)&serverAddress, sizeof(struct sockaddr));
     
     std::string dataToReceive = "Socket server envía datos al cliente.";
-    int bufferSize = dataToReceive.size() + 1;
-    char buffer[bufferSize];
-    size_t result = recv(clientSocketFD, buffer, dataToReceive.size(), 0);
-    buffer[result] = '\0';
-    printf("El cliente recibió %lu/%lu datos del server. Texto recibido: %s\n", result, dataToReceive.size(), buffer);
+    std::vector<char> buffer;
+    buffer.resize(dataToReceive.size(), 0);
+    size_t result = recv(clientSocketFD, &(buffer[0]), dataToReceive.size(), 0);
+    std::string bufferStr(buffer.begin(), buffer.end());
+    printf("El cliente recibió %lu/%lu datos del server. Texto recibido: %s\n", result, dataToReceive.size(), bufferStr.c_str());
     
     close(clientSocketFD);
     
