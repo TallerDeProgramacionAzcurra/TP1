@@ -37,6 +37,7 @@ Socket::Socket(int socketFD) {
 }
 
 Socket::~Socket() {
+    printf("CommonSocket.cpp - Destructor with FD: %i\n", this->socketFD);
     this->socketClose();
     this->socketFD = 0;
 }
