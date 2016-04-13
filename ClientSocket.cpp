@@ -25,12 +25,12 @@ ClientSocket::ClientSocket(const std::string serverAddress, int serverPort) : So
 }
 
 struct sockaddr_in ClientSocket::getServerAddress() {
-    struct sockaddr_in newAddr;
-    newAddr.sin_family = AF_INET;
-    newAddr.sin_port = htons(this->socketServerPort);
-    memset(&(newAddr.sin_zero), 0, sizeof(newAddr.sin_zero));
-    inet_pton(AF_INET, this->socketServerAddress.c_str(), &newAddr.sin_addr);
-    return newAddr;
+    struct sockaddr_in serverAddress;
+    serverAddress.sin_family = AF_INET;
+    serverAddress.sin_port = htons(this->socketServerPort);
+    serverAddress.sin_addr.s_addr = inet_addr(this->socketServerAddress.c_str());
+    memset(&(serverAddress.sin_zero), 0, sizeof(serverAddress.sin_zero));
+    return serverAddress;
 }
 
 void ClientSocket::clientSocketConnect() {

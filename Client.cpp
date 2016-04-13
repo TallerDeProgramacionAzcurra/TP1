@@ -22,24 +22,33 @@ static std::string const kSocketAddress = "127.0.0.1";
 static int const kSocketPort = 43210;
 
 int main(int argc, const char * argv[]) {
-    int clientSocketFD = socket(AF_INET, SOCK_STREAM, 0);
+//    int clientSocketFD = socket(AF_INET, SOCK_STREAM, 0);
+//    
+//    struct sockaddr_in serverAddress;
+//    serverAddress.sin_family = AF_INET;
+//    serverAddress.sin_port = htons(kSocketPort);
+//    serverAddress.sin_addr.s_addr = inet_addr(kSocketAddress.c_str());
+//    memset(&(serverAddress.sin_zero), '\0', 8);
+//    
+//    connect(clientSocketFD, (struct sockaddr *)&serverAddress, sizeof(struct sockaddr));
+//    
+//    std::string dataToReceive = "Socket server envía datos al cliente.";
+//    std::vector<char> buffer;
+//    buffer.resize(dataToReceive.size(), 0);
+//    size_t result = recv(clientSocketFD, &(buffer[0]), dataToReceive.size(), 0);
+//    std::string bufferStr(buffer.begin(), buffer.end());
+//    printf("El cliente recibió %lu/%lu datos del server. Texto recibido: %s\n", result, dataToReceive.size(), bufferStr.c_str());
+//    
+//    close(clientSocketFD);
     
-    struct sockaddr_in serverAddress;
-    serverAddress.sin_family = AF_INET;
-    serverAddress.sin_port = htons(kSocketPort);
-    serverAddress.sin_addr.s_addr = inet_addr(kSocketAddress.c_str());
-    memset(&(serverAddress.sin_zero), '\0', 8);
-    
-    connect(clientSocketFD, (struct sockaddr *)&serverAddress, sizeof(struct sockaddr));
+    ClientSocket clientSocket(kSocketAddress, kSocketPort);
+    clientSocket.clientSocketConnect();
     
     std::string dataToReceive = "Socket server envía datos al cliente.";
-    std::vector<char> buffer;
-    buffer.resize(dataToReceive.size(), 0);
-    size_t result = recv(clientSocketFD, &(buffer[0]), dataToReceive.size(), 0);
-    std::string bufferStr(buffer.begin(), buffer.end());
-    printf("El cliente recibió %lu/%lu datos del server. Texto recibido: %s\n", result, dataToReceive.size(), bufferStr.c_str());
+    std::string result = clientSocket.socketRecieve(dataToReceive.size());
+    printf("El cliente recibió el siguiente texto del server: %s.\n", result.c_str());
     
-    close(clientSocketFD);
+    clientSocket.socketShutdown();
     
 //    ClientThread clientThread;
 //    
