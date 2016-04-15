@@ -1,9 +1,9 @@
-#ifndef MENSAJE_H
-#define MENSAJE_H
+#ifndef MENSIJE_H
+#define MENSIJE_H
 #include <string>
 #include <string.h>
 
-class Mensaje
+class ServerMessage
 {
     public:
 
@@ -14,4 +14,4 @@ class Mensaje
     private:
 };
 
-#endif // MENSAJE_H
+#endif // MENSIJE_H
