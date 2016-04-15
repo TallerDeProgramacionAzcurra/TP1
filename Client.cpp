@@ -41,8 +41,8 @@ int main(int argc, const char * argv[]) {
             }
         }
         
-        printf("Ingrese la tecla 'Q' para detener la ejecución del cliente: ");
-        std::cin >> inputChar;
+//        printf("Ingrese la tecla 'Q' para detener la ejecución del cliente: ");
+//        std::cin >> inputChar;
     }
     
     for (listIterator = clientThreadList->begin(); listIterator != clientThreadList->end(); listIterator++) {
