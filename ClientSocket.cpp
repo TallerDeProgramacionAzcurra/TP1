@@ -40,7 +40,7 @@ void ClientSocket::clientSocketConnect() {
     
     int result = connect(this->socketFD, address, addressSize);
     if (result == kSocketError) {
-        printf("ClientSocket.cpp - Socket Connect error: %sn\n", strerror(errno));
+        printf("ClientSocket.cpp - Socket Connect error: %s\n", strerror(errno));
         this->socketClose();
         exit(1);
     }
