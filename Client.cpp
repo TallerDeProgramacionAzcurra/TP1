@@ -26,7 +26,8 @@ int main(int argc, const char * argv[]) {
     std::list<ClientThread> *clientThreadList = new std::list<ClientThread>;
     std::list<ClientThread>::iterator listIterator = clientThreadList->end();
     
-    while (true) {
+    char inputChar = 'a';
+    while (inputChar != 'q' && inputChar != 'Q') {
         ClientThread clientThread(kSocketAddress, kSocketPort);
         clientThreadList->insert(listIterator, clientThread);
         
@@ -42,7 +43,20 @@ int main(int argc, const char * argv[]) {
         
         clientThread.threadStop();
         clientThread.threadJoin();
+        
+        printf("Ingrese la tecla 'Q' para detener la ejecución del Servidor: ");
+        std::cin >> inputChar;
     }
+    
+    for (listIterator = clientThreadList->begin(); listIterator != clientThreadList->end(); listIterator++) {
+        ClientThread clientThread = *listIterator;
+        
+        clientThread.threadStop();
+        clientThread.threadJoin();
+        clientThreadList->erase(listIterator);
+    }
+    
+    delete clientThreadList;
     
     return 0;
 }
