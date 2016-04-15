@@ -47,7 +47,7 @@ void ServerThread::threadRun() {
             }
         }
         
-        delete serverClientThread;
+//        delete serverClientThread;
     }
     
     printf("ServerThread.cpp - Salí en el while del server.\n");
