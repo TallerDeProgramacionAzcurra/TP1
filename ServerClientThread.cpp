@@ -22,7 +22,6 @@ ServerClientThread::~ServerClientThread() {
 
 ServerClientThread::ServerClientThread(int clientSocketFD) : Thread(), clientSocketFD(clientSocketFD) {
     printf("ServerClientThread.cpp - ServerClientThread creado con éxito con socketFD: %i.\n", this->clientSocketFD);
-    this->clientThreadIsZombie = false;
 }
 
 void ServerClientThread::threadRun() {
@@ -40,7 +39,7 @@ void ServerClientThread::threadRun() {
     
     printf("ServerClientThread.cpp - Salí del ThreadRun.\n");
     
-    this->clientThreadIsZombie = true;
+    this->threadZombie = true;
 }
 
 void ServerClientThread::threadStop() {

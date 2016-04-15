@@ -24,11 +24,11 @@ void ClientThread::threadRun() {
         clientSocket->socketRecieve(dataToReceive.size());
         
         this->threadStop();
-        this->threadZombie = true;
     }
     
     clientSocket->socketShutdown();
     delete clientSocket;
+    this->threadZombie = true;
 }
 
 void ClientThread::threadStop() {
