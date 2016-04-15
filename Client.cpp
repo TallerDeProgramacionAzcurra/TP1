@@ -14,6 +14,7 @@
 #include <string.h>
 #include <stdio.h>
 #include <vector>
+#include <list>
 
 #include "ClientSocket.hpp"
 #include "ClientThread.hpp"
@@ -22,16 +23,25 @@ static std::string const kSocketAddress = "127.0.0.1";
 static int const kSocketPort = 43210;
 
 int main(int argc, const char * argv[]) {
-    char inputChar = 'a';
-    while (inputChar != 'q' && inputChar != 'Q') {
-        ClientSocket clientSocket(kSocketAddress, kSocketPort);
-        clientSocket.clientSocketConnect();
+    std::list<ClientThread> *clientThreadList = new std::list<ClientThread>;
+    std::list<ClientThread>::iterator listIterator = clientThreadList->end();
+    
+    while (true) {
+        ClientThread clientThread(kSocketAddress, kSocketPort);
+        clientThreadList->insert(listIterator, clientThread);
         
-        ClientThread clientThread(clientSocket);
+        for (listIterator = clientThreadList->begin(); listIterator != clientThreadList->end(); listIterator++) {
+            ClientThread clientThread = *listIterator;
             
+            if (clientThread.threadIsZombie() == true) {
+                clientThread.threadStop();
+                clientThread.threadJoin();
+                clientThreadList->erase(listIterator);
+            }
+        }
+        
         clientThread.threadStop();
         clientThread.threadJoin();
-        clientSocket.socketShutdown();
     }
     
     return 0;

@@ -10,18 +10,20 @@
 #define ClientThread_hpp
 
 #include <stdio.h>
+#include <string>
 
 #include "CommonThread.hpp"
 #include "ClientSocket.hpp"
 
 class ClientThread : public Thread {
 private:
-    ClientSocket &clientSocket;
+    std::string serverAddress;
+    int serverPort;
     
 public:
     // Constructors and destructors.
     virtual ~ClientThread();
-    ClientThread(ClientSocket &clientSocket);
+    ClientThread(std::string serverAddress, int serverPort);
     
     void threadRun();
     void threadStop();
