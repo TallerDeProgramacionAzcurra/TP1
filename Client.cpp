@@ -28,9 +28,7 @@ int main(int argc, const char * argv[]) {
         clientSocket.clientSocketConnect();
         
         ClientThread clientThread(clientSocket);
-        printf("Ingrese la tecla 'Q' para detener la ejecución del Servidor: ");
-        std::cin >> inputChar;
-        
+            
         clientThread.threadStop();
         clientThread.threadJoin();
         clientSocket.socketShutdown();
