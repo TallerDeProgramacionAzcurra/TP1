@@ -38,9 +38,10 @@ void ServerClientThread::threadRun() {
     
     printf("ServerClientThread.cpp - Salí del ThreadRun. SocketFD: %i\n", this->clientSocketFD);
     
-    this->threadZombie = true;
-    
+    newClientSocket->socketShutdown();
     delete newClientSocket;
+    
+    this->threadZombie = true;
 }
 
 void ServerClientThread::threadStop() {

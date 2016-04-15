@@ -28,6 +28,7 @@ void ClientThread::threadRun() {
     
     clientSocket->socketShutdown();
     delete clientSocket;
+    
     this->threadZombie = true;
 }
 
