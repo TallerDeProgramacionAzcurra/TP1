@@ -20,9 +20,6 @@ ServerSocket::ServerSocket(int serverPort, int serverBacklog) : Socket() {
     this->serverPort = serverPort;
     this->serverBacklog = serverBacklog;
     
-    int yes = 1;
-    setsockopt(this->socketFD, SOL_SOCKET, SO_REUSEADDR, &yes, sizeof(int));
-    
     printf("ServerSocket.cpp - Socket creado con FD: %i. Puerto asociado: %i.\n", this->socketFD, this->serverPort);
 }
 

@@ -26,6 +26,7 @@ Thread::Thread() {
     }
     
     this->threadKeepTalking = true;
+    this->threadZombie = false;
     
     printf("CommonThread.cpp - Thread creation success.\n");
 }
@@ -48,7 +49,7 @@ void Thread::threadStop() {
 }
 
 bool Thread::threadIsZombie() {
-    return false;
+    return this->threadZombie;
 }
 
 void *Thread::routine(void *threadID) {

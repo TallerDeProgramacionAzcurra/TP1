@@ -17,6 +17,7 @@
 class ServerClientThread : public Thread {
 private:
     int clientSocketFD;
+    bool clientThreadIsZombie;
     
 public:
     virtual ~ServerClientThread();
@@ -24,7 +25,6 @@ public:
     
     void threadRun();
     void threadStop();
-    bool threadIsZombie();
 };
 
 #endif /* ServerClientThread_hpp */

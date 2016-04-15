@@ -20,6 +20,7 @@ private:
     
 protected:
     bool threadKeepTalking;
+    bool threadZombie;
     
 public:
     // Constructors and destructors.
@@ -27,9 +28,9 @@ public:
     Thread();
     
     void threadJoin();
+    bool threadIsZombie();
     virtual void threadRun();
     virtual void threadStop();
-    virtual bool threadIsZombie();
 };
 
 #endif /* CommonThread_hpp */

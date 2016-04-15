@@ -22,6 +22,7 @@ ServerClientThread::~ServerClientThread() {
 
 ServerClientThread::ServerClientThread(int clientSocketFD) : Thread(), clientSocketFD(clientSocketFD) {
     printf("ServerClientThread.cpp - ServerClientThread creado con éxito con socketFD: %i.\n", this->clientSocketFD);
+    this->clientThreadIsZombie = false;
 }
 
 void ServerClientThread::threadRun() {
@@ -32,19 +33,17 @@ void ServerClientThread::threadRun() {
         Socket *newClientSocket = new Socket(this->clientSocketFD);
         newClientSocket->socketSend(dataToSend);
         
-        this->threadStop();
         delete newClientSocket;
+        
+        this->threadStop();
     }
     
     printf("ServerClientThread.cpp - Salí del ThreadRun.\n");
+    
+    this->clientThreadIsZombie = true;
 }
 
 void ServerClientThread::threadStop() {
     printf("ServerClientThread.cpp - Stopping Thread.\n");
     this->threadKeepTalking = false;
-}
-
-bool ServerClientThread::threadIsZombie() {
-    printf("ServerClientThread.cpp - Thread is Zombie called: %i\n", !this->threadKeepTalking);
-    return !this->threadKeepTalking;
 }

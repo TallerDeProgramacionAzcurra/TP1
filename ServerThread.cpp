@@ -37,15 +37,16 @@ void ServerThread::threadRun() {
         ServerClientThread *serverClientThread = new ServerClientThread(clientSocketFD);
         clientThreadList->insert(listIterator, serverClientThread);
 
-//        for (listIterator = clientThreadList->begin(); listIterator != clientThreadList->end(); listIterator++) {
-//            ServerClientThread *clientThread = *listIterator;
-//
-//            if (clientThread->threadIsZombie() == true) {
-//                clientThread->threadStop();
-//                clientThread->threadJoin();
-//                clientThreadList->erase(listIterator);
-//            }
-//        }
+        for (listIterator = clientThreadList->begin(); listIterator != clientThreadList->end(); listIterator++) {
+            ServerClientThread *clientThread = *listIterator;
+
+            if (clientThread->threadIsZombie() == true) {
+                clientThread->threadStop();
+                clientThread->threadJoin();
+                clientThreadList->erase(listIterator);
+                delete clientThread;
+            }
+        }
     }
     
     printf("ServerThread.cpp - Salí en el while del server.\n");
@@ -59,6 +60,8 @@ void ServerThread::threadRun() {
     }
     
     delete clientThreadList;
+    
+    this->threadZombie = true;
 }
 
 void ServerThread::threadStop() {
