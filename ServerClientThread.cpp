@@ -25,24 +25,25 @@ ServerClientThread::ServerClientThread(int clientSocketFD) : Thread(), clientSoc
 }
 
 void ServerClientThread::threadRun() {
+    Socket *newClientSocket = new Socket(this->clientSocketFD);
+    
     while(this->threadKeepTalking == true) {
-        printf("ServerClientThread.cpp - Corriendo hilo para el send del server/client\n");
+        printf("ServerClientThread.cpp - Corriendo hilo para el send del server/client. SocketFD: %i\n", this->clientSocketFD);
         
         std::string dataToSend = "Socket server envía datos al cliente.";
-        Socket *newClientSocket = new Socket(this->clientSocketFD);
         newClientSocket->socketSend(dataToSend);
-        
-        delete newClientSocket;
         
         this->threadStop();
     }
     
-    printf("ServerClientThread.cpp - Salí del ThreadRun.\n");
+    printf("ServerClientThread.cpp - Salí del ThreadRun. SocketFD: %i\n", this->clientSocketFD);
     
     this->threadZombie = true;
+    
+    delete newClientSocket;
 }
 
 void ServerClientThread::threadStop() {
-    printf("ServerClientThread.cpp - Stopping Thread.\n");
+    printf("ServerClientThread.cpp - Stopping Thread. SocketFD: %i\n", this->clientSocketFD);
     this->threadKeepTalking = false;
 }

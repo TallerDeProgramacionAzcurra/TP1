@@ -44,7 +44,7 @@ int main(int argc, const char * argv[]) {
         clientThread.threadStop();
         clientThread.threadJoin();
         
-        printf("Ingrese la tecla 'Q' para detener la ejecución del Servidor: ");
+        printf("Ingrese la tecla 'Q' para detener la ejecución del cliente: ");
         std::cin >> inputChar;
     }
     
